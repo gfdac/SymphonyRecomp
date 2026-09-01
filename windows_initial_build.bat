@@ -129,18 +129,22 @@ echo.
 echo ^> Checking disc files...
 
 
-if not exist "%DISC%\Castlevania - Symphony of the Night (Track 1).bin" (
-    echo Missing: Castlevania - Symphony of the Night ^(Track 1^).bin
-    set "MISSING=1"
-)
-
-if not exist "%DISC%\Castlevania - Symphony of the Night (Track 2).bin" (
-    echo Missing: Castlevania - Symphony of the Night ^(Track 2^).bin
-    set "MISSING=1"
-)
-
 if not exist "%DISC%\Castlevania - Symphony of the Night (USA).cue" (
     echo Missing: Castlevania - Symphony of the Night ^(USA^).cue
+    set "MISSING=1"
+)
+
+REM Check if multi-track (Track 1 + Track 2) or single-bin dump exists
+set "FOUND_BIN=0"
+if exist "%DISC%\Castlevania - Symphony of the Night (Track 1).bin" (
+    set "FOUND_BIN=1"
+)
+for %%f in ("%DISC%\*.bin") do (
+    set "FOUND_BIN=1"
+)
+
+if "%FOUND_BIN%"=="0" (
+    echo Missing: .bin disc image in %DISC% directory
     set "MISSING=1"
 )
 
@@ -148,20 +152,20 @@ if "%MISSING%"=="1" (
     echo.
     echo ============================================================
     echo ERROR: Required disc files are missing or incorrectly named!
-    echo Please place the following files in:
+    echo Please place your disc files in:
     echo %CD%\disc
     echo.
-    echo Files must be named exactly:
-    echo Castlevania - Symphony of the Night ^(Track 1^).bin
-    echo Castlevania - Symphony of the Night ^(Track 2^).bin
-    echo Castlevania - Symphony of the Night ^(USA^).cue
+    echo Make sure your .cue file is named:
+    echo   Castlevania - Symphony of the Night ^(USA^).cue
+    echo And your .bin file^(s^) are in the same folder with the name
+    echo referenced inside the .cue file.
     echo ============================================================
     echo.
     pause
     exit /b 1
 )
 
-echo Disc files found and properly named!
+echo Disc files found!
 echo.
 REM ===================================================================================================
 
