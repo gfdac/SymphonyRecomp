@@ -35,7 +35,6 @@ public static class SpellWheel
         new(Spell.WingSmash, "spell.wing_smash", "Wing Smash", 8, 0x80137ff4, 0x07, 0x80137ff8, 0x10, 1),
     ];
 
-    private static ushort _prevPad = 0;
     private static volatile int _pendingQuickCast = -1;
 
     static SpellWheel()
@@ -92,11 +91,11 @@ public static class SpellWheel
         if (!Game.InGame || !Player.IsAlucard) return false;
 
         // Check MP
-        if (Player.MP < info.MpCost)
+        if (Player.Mp < info.MpCost)
         {
             ToastNotifications.ShowText(
                 Localization.T("spell.mp_low_title"),
-                $"{Localization.T("spell.mp_low_msg")} ({Player.MP}/{info.MpCost} MP)",
+                $"{Localization.T("spell.mp_low_msg")} ({Player.Mp}/{info.MpCost} MP)",
                 null,
                 2.0f);
             return false;

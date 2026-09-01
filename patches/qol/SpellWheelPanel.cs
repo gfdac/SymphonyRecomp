@@ -33,8 +33,8 @@ public sealed class SpellWheelPanel : IPanel
         }
 
         // MP Status Bar
-        int curMp = Player.MP;
-        int maxMp = Player.MaxMP;
+        int curMp = Player.Mp;
+        int maxMp = Player.MpMax;
         float mpRatio = maxMp > 0 ? Math.Clamp((float)curMp / maxMp, 0f, 1f) : 0f;
 
         ImGui.Text($"MP: {curMp} / {maxMp}");

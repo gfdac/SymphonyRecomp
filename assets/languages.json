@@ -120,6 +120,14 @@
             "zh-CN": "快捷施法",
             "fr-FR": "Lancement Rapide de Sorts"
         },
+        "panel.bestiary": {
+            "en": "Bestiary & Drops",
+            "pt-BR": "Bestiário & Drops",
+            "es-419": "Bestiario & Drops",
+            "ja-JP": "図鑑 & ドロップ",
+            "zh-CN": "怪物图鉴 & 掉落物",
+            "fr-FR": "Bestiaire & Butin"
+        },
         "spell.spell_list": {
             "en": "Spell List",
             "pt-BR": "Lista de Magias",
