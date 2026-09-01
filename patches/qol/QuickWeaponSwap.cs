@@ -16,7 +16,6 @@ public static class QuickWeaponSwap
     private static readonly uint[] SlotRight = new uint[3];
     private static readonly uint[] SlotLeft = new uint[3];
     private static ushort _prevPad = 0;
-    private static bool _prevQ = false;
 
     public static void Load()
     {

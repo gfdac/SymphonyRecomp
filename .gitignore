@@ -12,3 +12,9 @@ debug_dump/
 disc/
 mods/.cache
 packs/
+ghidra_files/**/*.BIN
+ghidra_files/**/*.bin
+ghidra_files/*.exe
+ghidra_files/*.CNF
+tools/**/bin/
+tools/**/obj/
