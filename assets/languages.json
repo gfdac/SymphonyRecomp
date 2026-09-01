@@ -168,6 +168,14 @@
             "zh-CN": "快速过图 (跳过CD加载走廊)",
             "fr-FR": "Transitions Rapides (Passer les Salles CD)"
         },
+        "qol.richter_qol": {
+            "en": "Enhanced Richter Controls (Triangle Item Crash)",
+            "pt-BR": "Controles Aprimorados de Richter (Item Crash no Triângulo)",
+            "es-419": "Controles Mejorados de Richter (Item Crash con Triángulo)",
+            "ja-JP": "リヒター操作性の向上 (△ボタンのアイテムクラッシュ)",
+            "zh-CN": "里希特操作强化 (三角键快速大招)",
+            "fr-FR": "Contrôles Améliorés de Richter (Item Crash Triangle)"
+        },
         "qol.quick_weapon_swap": {
             "en": "Quick Weapon Swap (3 Loadouts: R3 / Q)",
             "pt-BR": "Troca Rápida de Armas (3 Conjuntos: R3 / Q)",

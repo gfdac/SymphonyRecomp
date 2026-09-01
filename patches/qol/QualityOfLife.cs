@@ -41,6 +41,7 @@ internal class QualityOfLife
         AlucardDash.Load();
         SkipCdRooms.Load();
         HardcoreMode.Load();
+        RichterQoL.Load();
     }
 
     public static void Save()
@@ -66,6 +67,7 @@ internal class QualityOfLife
         AlucardDash.Save();
         SkipCdRooms.Save();
         HardcoreMode.Save();
+        RichterQoL.Save();
 
         RecompOne.Runtime.Runtime.SaveView();
     }
@@ -78,6 +80,7 @@ internal class QualityOfLife
         AlucardDash.Update(c, m);
         SkipCdRooms.Update(c, m);
         HardcoreMode.Update(c, m);
+        RichterQoL.Update(c, m);
         // Colorblind Fixes
         if (QualityOfLife.ColorBlind == true)
         {

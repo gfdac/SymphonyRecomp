@@ -49,6 +49,7 @@ public sealed class QualityOfLifePanel : IPanel
         dirty |= Toggle("qol.quick_weapon_swap", ref QuickWeaponSwap.Enabled);
         dirty |= Toggle("qol.alucard_dash", ref AlucardDash.Enabled);
         dirty |= Toggle("qol.skip_cd_rooms", ref SkipCdRooms.Enabled);
+        dirty |= Toggle("qol.richter_qol", ref RichterQoL.Enabled);
         dirty |= Toggle("qol.fairy_song", ref QualityOfLife.RestoreFairySong);
 
         if (dirty) QualityOfLife.Save();
