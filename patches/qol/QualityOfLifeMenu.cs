@@ -12,11 +12,13 @@ public static class QualityOfLifeMenu
         PanelManager.Register(new FastTravelPanel());
         PanelManager.Register(new SpellWheelPanel());
         PanelManager.Register(new BestiaryPanel());
+        PanelManager.Register(new AchievementsPanel());
 
         MenuRegistry.Menu("menu.misc").After("menu.mods")
             .Panel<QualityOfLifePanel>("panel.qol")
             .Panel<FastTravelPanel>("panel.fast_travel")
             .Panel<SpellWheelPanel>("panel.spell_wheel")
-            .Panel<BestiaryPanel>("panel.bestiary");
+            .Panel<BestiaryPanel>("panel.bestiary")
+            .Panel<AchievementsPanel>("panel.achievements");
     }
 }

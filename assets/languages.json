@@ -128,6 +128,30 @@
             "zh-CN": "怪物图鉴 & 掉落物",
             "fr-FR": "Bestiaire & Butin"
         },
+        "panel.achievements": {
+            "en": "Achievements & Trophies",
+            "pt-BR": "Conquistas & Troféus",
+            "es-419": "Logros & Trofeos",
+            "ja-JP": "実績 & トロフィー",
+            "zh-CN": "成就 & 奖杯",
+            "fr-FR": "Succès & Trophées"
+        },
+        "qol.alucard_dash": {
+            "en": "Alucard Sprint & Dash (Godspeed Boots)",
+            "pt-BR": "Corrida & Dash do Alucard (Botas de Corrida)",
+            "es-419": "Carrera y Dash de Alucard (Botas de Velocidad)",
+            "ja-JP": "アルカードのダッシュ機能 (韋駄天の靴)",
+            "zh-CN": "阿鲁卡多冲刺冲锋 (疾风之靴)",
+            "fr-FR": "Course & Dash d'Alucard (Bottes de Vitesse)"
+        },
+        "qol.quick_weapon_swap": {
+            "en": "Quick Weapon Swap (3 Loadouts: R3 / Q)",
+            "pt-BR": "Troca Rápida de Armas (3 Conjuntos: R3 / Q)",
+            "es-419": "Cambio Rápido de Armas (3 Conjuntos: R3 / Q)",
+            "ja-JP": "武器クイック切り替え (3スロット: R3 / Q)",
+            "zh-CN": "快捷武器切换 (3套配置: R3 / Q)",
+            "fr-FR": "Changement Rapide d'Armes (3 Profils: R3 / Q)"
+        },
         "spell.spell_list": {
             "en": "Spell List",
             "pt-BR": "Lista de Magias",

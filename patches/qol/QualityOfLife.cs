@@ -37,6 +37,8 @@ internal class QualityOfLife
 
         QuickWeaponSwap.Load();
         SpellWheel.Load();
+        Achievements.Load();
+        AlucardDash.Load();
     }
 
     public static void Save()
@@ -58,6 +60,8 @@ internal class QualityOfLife
 
         QuickWeaponSwap.Save();
         SpellWheel.Save();
+        Achievements.Save();
+        AlucardDash.Save();
 
         RecompOne.Runtime.Runtime.SaveView();
     }
@@ -66,6 +70,8 @@ internal class QualityOfLife
     {
         QuickWeaponSwap.Update(c, m);
         SpellWheel.Update(c, m);
+        Achievements.Update(c, m);
+        AlucardDash.Update(c, m);
         // Colorblind Fixes
         if (QualityOfLife.ColorBlind == true)
         {
