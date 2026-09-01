@@ -119,7 +119,6 @@ public sealed class BestiaryPanel : IPanel
             return;
         }
 
-        var entities = Game.Entities;
         int foundCount = 0;
 
         ImGui.TextColored(new Vector4(0.2f, 0.9f, 0.3f, 1f), "Radar de Inimigos Ativos na Sala:");
@@ -127,9 +126,9 @@ public sealed class BestiaryPanel : IPanel
 
         ImGui.BeginChild("live_scanner_child", Vector2.Zero, ImGuiChildFlags.Border);
 
-        for (int i = 1; i < Game.EntityCount; i++)
+        for (int i = 1; i < Entities.Count; i++)
         {
-            var ent = entities[i];
+            var ent = Entities.At(i);
             if (!ent.IsValid || ent.HitPoints <= 0) continue;
             if ((ent.Flags & (int)EntityFlags.NotAnEnemy) != 0) continue;
 
