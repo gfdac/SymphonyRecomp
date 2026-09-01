@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SymphonyRecomp - O Port Definitivo de Castlevania: SOTN para PC</title>
+    <meta name="description" content="Castlevania: Symphony of the Night estaticamente recompilado em C# .NET 10 nativo com Multiplayer Co-op 60Hz, Modo Hardcore, Conquistas, Shaders CRT e muito mais.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-icon"><i class="fa-solid fa-moon"></i></span>
+                <span class="logo-text">Symphony<span class="logo-accent">Recomp</span></span>
+                <span class="badge-tag">STATE OF THE ART</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#features" class="nav-link"><i class="fa-solid fa-bolt"></i> Recursos</a>
+                <a href="#multiplayer" class="nav-link"><i class="fa-solid fa-network-wired"></i> Multiplayer</a>
+                <a href="#hardcore" class="nav-link"><i class="fa-solid fa-skull"></i> Hardcore</a>
+                <a href="#shortcuts" class="nav-link"><i class="fa-solid fa-gamepad"></i> Atalhos</a>
+                <a href="#credits" class="nav-link"><i class="fa-solid fa-scroll"></i> Origem & Créditos</a>
+                <a href="#install" class="nav-link"><i class="fa-solid fa-download"></i> Como Jogar</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="https://github.com/gfdac/SymphonyRecomp/tree/dev" target="_blank" class="btn-github">
+                    <i class="fa-brands fa-github"></i> <span>GitHub (dev)</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" style="background-image: url('assets/hero.jpg');"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="hero-badge animate-fade-in">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> .NET 10 NATIVO • ZERO EMULAÇÃO • 60 FPS CRAVADOS
+            </div>
+            
+            <h1 class="hero-title animate-slide-up">
+                O Castlevania SOTN <br>
+                <span class="text-gradient">Mais Insano do Mundo</span>
+            </h1>
+            
+            <p class="hero-description animate-slide-up-delay">
+                Uma obra-prima da engenharia reversa e preservação: o clássico imortal do PlayStation 1 estaticamente recompilado em <strong>C# puro</strong>, com <strong>Multiplayer Co-op Online 60Hz</strong>, <strong>Modo Hardcore</strong>, <strong>Conquistas Nativas</strong>, <strong>Radar em Tempo Real</strong> e <strong>Shaders CRT de Alta Fidelidade</strong>.
+            </p>
+
+            <div class="hero-buttons animate-slide-up-delay-2">
+                <a href="#install" class="btn btn-primary"><i class="fa-solid fa-play"></i> Começar a Jogar</a>
+                <a href="#multiplayer" class="btn btn-secondary"><i class="fa-solid fa-users"></i> Explorar Multiplayer</a>
+                <a href="#shortcuts" class="btn btn-outline"><i class="fa-solid fa-keyboard"></i> Guia de Atalhos</a>
+            </div>
+
+            <!-- STATS COUNTER -->
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">60 FPS</span>
+                    <span class="stat-label">Fluidez Nativa no PC</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">P2P 60Hz</span>
+                    <span class="stat-label">Multiplayer Co-op & PvP</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">20 Chefes</span>
+                    <span class="stat-label">Respawn & Arena Warp</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">14+</span>
+                    <span class="stat-label">Conquistas & Troféus</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">16:9 / 21:9</span>
+                    <span class="stat-label">Suporte Ultrawide</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: MULTIPLAYER STATE OF THE ART -->
+    <section class="section section-multiplayer" id="multiplayer">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fa-solid fa-globe"></i> REVOLUÇÃO COOPERATIVA</span>
+                <h2 class="section-title">Multiplayer Co-op & Duelos PvP</h2>
+                <p class="section-subtitle">
+                    Dois jogadores no mesmo castelo com <strong>exploração livre desacoplada</strong>. Cada um joga na sua própria tela com 0ms de lag de fila!
+                </p>
+            </div>
+
+            <div class="multiplayer-grid">
+                <!-- Interactive Radar Demo Canvas -->
+                <div class="multiplayer-radar-box">
+                    <div class="radar-header">
+                        <span><i class="fa-solid fa-radar"></i> Radar do Castelo em Tempo Real (Simulador)</span>
+                        <span class="radar-ping"><span class="ping-dot"></span> Ping: 18 ms (UDP 60Hz)</span>
+                    </div>
+
+                    <canvas id="radarCanvas" width="480" height="240"></canvas>
+
+                    <div class="radar-legend">
+                        <span class="leg-item"><span class="box-color box-blue"></span> Você</span>
+                        <span class="leg-item"><span class="box-color box-orange"></span> Amigo</span>
+                        <span class="leg-item"><span class="box-color box-green"></span> Ambos Exploraram</span>
+                        <span class="leg-item"><span class="dot-color dot-white"></span> Sua Posição (Alucard)</span>
+                        <span class="leg-item"><span class="dot-color dot-red"></span> Amigo (Richter)</span>
+                    </div>
+
+                    <div class="radar-controls">
+                        <button id="btnSimulateMove" class="btn btn-sm btn-secondary"><i class="fa-solid fa-person-running"></i> Simular Exploração do Amigo</button>
+                        <button id="btnBuddyWarp" class="btn btn-sm btn-primary"><i class="fa-solid fa-wand-magic"></i> Testar Buddy Warp</button>
+                    </div>
+                </div>
+
+                <!-- Features Checklist -->
+                <div class="multiplayer-features">
+                    <div class="m-feature-card">
+                        <div class="mf-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                        <div class="mf-info">
+                            <h4>Mini-Mapa Compartilhado</h4>
+                            <p>Qualquer sala ou parede secreta que seu parceiro descobrir acende automaticamente no seu mapa em tempo real.</p>
+                        </div>
+                    </div>
+
+                    <div class="m-feature-card">
+                        <div class="mf-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
+                        <div class="mf-info">
+                            <h4>Renderização de Entidade & Buddy Warp</h4>
+                            <p>Na mesma sala, você vê seu amigo atacando e se movendo a 60 FPS lisos. Precisa de ajuda? Teleporte direto até ele com 1 clique.</p>
+                        </div>
+                    </div>
+
+                    <div class="m-feature-card">
+                        <div class="mf-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="mf-info">
+                            <h4>Duelos no Coliseu (PvP Arena)</h4>
+                            <p>Entrem juntos na arena do Coliseu para travar um duelo épico equilibrado (Alucard vs Richter) com placar ao vivo.</p>
+                        </div>
+                    </div>
+
+                    <div class="m-feature-card">
+                        <div class="mf-icon"><i class="fa-solid fa-network-wired"></i></div>
+                        <div class="mf-info">
+                            <h4>Jogue Pela Internet (UPnP & IP Público)</h4>
+                            <p>O jogo descobre seu IP público e oferece botão de copiar com 1 clique, além de suporte para Radmin VPN, Tailscale e ZeroTier.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: FEATURES SHOWCASE -->
+    <section class="section section-features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fa-solid fa-crown"></i> QUALIDADE DE VIDA & DESAFIO</span>
+                <h2 class="section-title">Recursos Modernos do Ecossistema</h2>
+                <p class="section-subtitle">Tudo o que a comunidade sempre sonhou, agora nativo no PC.</p>
+            </div>
+
+            <div class="features-grid">
+                
+                <!-- CARD 1: HARDCORE MODE -->
+                <div class="feature-card" id="hardcore">
+                    <div class="fc-badge fc-badge-danger">DESAFIO BRUTAL</div>
+                    <div class="fc-icon"><i class="fa-solid fa-skull"></i></div>
+                    <h3 class="fc-title">Modo Hard & Hardcore (Permadeath)</h3>
+                    <p class="fc-desc">
+                        Aumente o dano recebido de 1.5x até 5.0x e ative o <strong>Modo HARDCORE</strong>: se o Alucard morrer, o progresso da campanha é permanentemente apagado!
+                    </p>
+                    <ul class="fc-list">
+                        <li><i class="fa-solid fa-check"></i> Multiplicador de Dano Ajustável</li>
+                        <li><i class="fa-solid fa-check"></i> Restrições Anti-Spam de Poções</li>
+                        <li><i class="fa-solid fa-check"></i> Alertas e Estatísticas de Sobrevivência</li>
+                    </ul>
+                </div>
+
+                <!-- CARD 2: ACHIEVEMENTS -->
+                <div class="feature-card">
+                    <div class="fc-badge fc-badge-gold">TROFÉUS PC</div>
+                    <div class="fc-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <h3 class="fc-title">Sistema de Conquistas Nativas</h3>
+                    <p class="fc-desc">
+                        14+ Conquistas com belas notificações Toast animadas na tela, pontuação acumulada, porcentagem geral e registro de data/hora.
+                    </p>
+                    <ul class="fc-list">
+                        <li><i class="fa-solid fa-check"></i> What is a Man? (Prólogo)</li>
+                        <li><i class="fa-solid fa-check"></i> Sword of the Century (Crissaegrim)</li>
+                        <li><i class="fa-solid fa-check"></i> Grand Cartographer (200.6% do Mapa)</li>
+                    </ul>
+                </div>
+
+                <!-- CARD 3: BOSS RESPAWN -->
+                <div class="feature-card">
+                    <div class="fc-badge fc-badge-purple">REPLAY INFINITO</div>
+                    <div class="fc-icon"><i class="fa-solid fa-dragon"></i></div>
+                    <h3 class="fc-title">Reviver Chefes & Teleporte de Arenas</h3>
+                    <p class="fc-desc">
+                        Todos os 20 chefes catalogados com status (Vivo/Derrotado). Reviva qualquer chefe com 1 clique e teleporte direto para a arena para lutar de novo!
+                    </p>
+                    <ul class="fc-list">
+                        <li><i class="fa-solid fa-check"></i> 20 Chefes (Normal e Invertido)</li>
+                        <li><i class="fa-solid fa-check"></i> Reviver Chefe ou Reviver Todos</li>
+                        <li><i class="fa-solid fa-check"></i> Teleporte Instantâneo de Arena</li>
+                    </ul>
+                </div>
+
+                <!-- CARD 4: ALUCARD DASH -->
+                <div class="feature-card">
+                    <div class="fc-badge fc-badge-cyan">AGILIDADE</div>
+                    <div class="fc-icon"><i class="fa-solid fa-person-running"></i></div>
+                    <h3 class="fc-title">Corrida & Dash do Alucard (Godspeed Boots)</h3>
+                    <p class="fc-desc">
+                        Dois toques para a frente (<code>→ →</code> / <code>← ←</code>) ou segurar <code>L1</code>/<code>R1</code> para correr em altíssima velocidade sem precisar equipar as botas do Saturn!
+                    </p>
+                    <ul class="fc-list">
+                        <li><i class="fa-solid fa-check"></i> Aceleração Suave e Imediata</li>
+                        <li><i class="fa-solid fa-check"></i> Compatível com Controle e Teclado</li>
+                        <li><i class="fa-solid fa-check"></i> Transições Rápidas (Pular Salas de CD)</li>
+                    </ul>
+                </div>
+
+                <!-- CARD 5: BESTIARY & RADAR -->
+                <div class="feature-card">
+                    <div class="fc-badge fc-badge-blue">COMPÊNDIO</div>
+                    <div class="fc-icon"><i class="fa-solid fa-book-skull"></i></div>
+                    <h3 class="fc-title">Bestiário Interativo & Radar em Tempo Real</h3>
+                    <p class="fc-desc">
+                        Inspecione os monstros na sala com a barra de HP exata em tempo real, fraquezas elementais (Holy, Dark, Fire, etc.) e taxas exatas de drop de itens raros.
+                    </p>
+                    <ul class="fc-list">
+                        <li><i class="fa-solid fa-check"></i> Live Entity Scanner com Barra de Vida</li>
+                        <li><i class="fa-solid fa-check"></i> Tabela Exata de Drops (Crissaegrim 1.5%)</li>
+                        <li><i class="fa-solid fa-check"></i> Busca Instantânea de Monstros</li>
+                    </ul>
+                </div>
+
+                <!-- CARD 6: SPELL QUICK CAST -->
+                <div class="feature-card">
+                    <div class="fc-badge fc-badge-magic">MAGIA RÁPIDA</div>
+                    <div class="fc-icon"><i class="fa-solid fa-hand-sparkles"></i></div>
+                    <h3 class="fc-title">Roda de Magias & Quick Cast</h3>
+                    <p class="fc-desc">
+                        Conjure magias do Alucard instantaneamente pelas teclas <code>1</code> a <code>6</code> ou pela paleta gráfica do ImGui com validação em tempo real de MP.
+                    </p>
+                    <ul class="fc-list">
+                        <li><i class="fa-solid fa-check"></i> Soul Steal, Hellfire, Tetra Spirit, etc.</li>
+                        <li><i class="fa-solid fa-check"></i> Validação Inteligente de Custo de MP</li>
+                        <li><i class="fa-solid fa-check"></i> Toasts Informativos na Tela</li>
+                    </ul>
+                </div>
+
+                <!-- CARD 7: SHADERS CRT PRO -->
+                <div class="feature-card">
+                    <div class="fc-badge fc-badge-retro">VISUAL AUDIÓFILO</div>
+                    <div class="fc-icon"><i class="fa-solid fa-tv"></i></div>
+                    <h3 class="fc-title">Shaders Retrô de Alta Fidelidade</h3>
+                    <p class="fc-desc">
+                        Filtros visuais GLSL customizados sem distorção curva ou escurecimento de pretos.
+                    </p>
+                    <ul class="fc-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Scanlines Clean</strong> (Linhas nítidas sem perda de brilho)</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Sony Trinitron PVM</strong> (Aperture Grille + Bloom/Glow)</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>CRT-Geom</strong> (Curvatura clássica ajustável)</li>
+                    </ul>
+                </div>
+
+                <!-- CARD 8: FAST TRAVEL & WEAPON SWAP -->
+                <div class="feature-card">
+                    <div class="fc-badge fc-badge-green">NAVEGAÇÃO</div>
+                    <div class="fc-icon"><i class="fa-solid fa-compass"></i></div>
+                    <h3 class="fc-title">Viagem Rápida Global & Troca de Armas</h3>
+                    <p class="fc-desc">
+                        Teletransporte para mais de 25 áreas dos dois castelos e alterne entre 3 loadouts de armas instantaneamente com <code>R3</code> ou <code>Q</code>.
+                    </p>
+                    <ul class="fc-list">
+                        <li><i class="fa-solid fa-check"></i> Filtro "Apenas Áreas Já Visitadas"</li>
+                        <li><i class="fa-solid fa-check"></i> 3 Perfis de Equipamentos Salvos</li>
+                        <li><i class="fa-solid fa-check"></i> Item Crash do Richter no Triângulo (<code>△</code>)</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: SHORTCUTS CHEATSHEET -->
+    <section class="section section-shortcuts" id="shortcuts">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fa-solid fa-keyboard"></i> CONTROLES & ATALHOS</span>
+                <h2 class="section-title">Cheatsheet Completo de Gameplay</h2>
+                <p class="section-subtitle">Acesso rápido a todos os controles e atalhos mapeados no jogo.</p>
+            </div>
+
+            <div class="shortcuts-search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="shortcutSearch" placeholder="Buscar atalho ou funcionalidade (ex: Magia, Troca, Corrida, R3)...">
+            </div>
+
+            <div class="table-responsive">
+                <table class="shortcuts-table" id="shortcutsTable">
+                    <thead>
+                        <tr>
+                            <th>Funcionalidade</th>
+                            <th>Teclado</th>
+                            <th>Controle (Xbox / DualShock)</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Troca Rápida de Armas</strong></td>
+                            <td><kbd>Q</kbd></td>
+                            <td><kbd>R3</kbd> <em>(Analógico Direito)</em></td>
+                            <td>Alterna ciclicamente entre os 3 perfis de armas e escudos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Corrida do Alucard</strong></td>
+                            <td><kbd>→</kbd> <kbd>→</kbd> ou <kbd>←</kbd> <kbd>←</kbd></td>
+                            <td><kbd>→</kbd> <kbd>→</kbd> ou Segurar <kbd>L1</kbd> / <kbd>R1</kbd></td>
+                            <td>Dois toques para a frente para correr em alta velocidade (Godspeed Boots).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Invocar Espírito (5 MP)</strong></td>
+                            <td><kbd>1</kbd></td>
+                            <td>Menu de Magias</td>
+                            <td>Conjura <em>Summon Spirit</em> instantaneamente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tetra Espírito (20 MP)</strong></td>
+                            <td><kbd>2</kbd></td>
+                            <td>Menu de Magias</td>
+                            <td>Conjura <em>Tetra Spirit</em> instantaneamente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Metamorfose Sombria (10 MP)</strong></td>
+                            <td><kbd>3</kbd></td>
+                            <td>Menu de Magias</td>
+                            <td>Conjura <em>Dark Metamorphosis</em> instantaneamente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fogo do Inferno (15 MP)</strong></td>
+                            <td><kbd>4</kbd></td>
+                            <td>Menu de Magias</td>
+                            <td>Conjura <em>Hellfire</em> instantaneamente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Roubo de Almas (50 MP)</strong></td>
+                            <td><kbd>5</kbd></td>
+                            <td>Menu de Magias</td>
+                            <td>Conjura <em>Soul Steal</em> instantaneamente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Irmãos da Espada (30 MP)</strong></td>
+                            <td><kbd>6</kbd></td>
+                            <td>Menu de Magias</td>
+                            <td>Conjura <em>Sword Brothers</em> (requer Familiar Espada).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Item Crash do Richter</strong></td>
+                            <td><kbd>V</kbd></td>
+                            <td><kbd>△</kbd> <em>(Triângulo / Y)</em></td>
+                            <td>Dispara o golpe supremo da sub-arma imediatamente com Richter.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Barra de Menus ImGui</strong></td>
+                            <td><kbd>F11</kbd> / Topo da Tela</td>
+                            <td>Menu Superior</td>
+                            <td>Abre e fecha a barra com todos os painéis e opções do jogo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: CREDITS & ORIGIN -->
+    <section class="section section-credits" id="credits">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fa-solid fa-scroll"></i> HISTÓRIA & ORIGEM</span>
+                <h2 class="section-title">Créditos & Reconhecimento da Comunidade</h2>
+                <p class="section-subtitle">
+                    Este projeto não nasceu do zero: ele é construído com muito respeito sobre os alicerces dos pioneiros da recompilação estática de PlayStation.
+                </p>
+            </div>
+
+            <div class="credits-card">
+                <div class="credits-main">
+                    <div class="author-badge">
+                        <i class="fa-solid fa-code"></i>
+                        <div>
+                            <h3>BlackLabelHQ & flaffymg</h3>
+                            <p>Criador do motor de recompilação <strong>RecompOne</strong> e do projeto base <strong>SymphonyRecomp</strong>.</p>
+                        </div>
+                    </div>
+                    
+                    <p class="credits-text">
+                        Agradecimentos especiais a <strong>flaffymg</strong>, à equipe da <strong>BlackLabelHQ</strong>, aos desenvolvedores do <strong>SOTN Decomp Project</strong> e a criadores da comunidade como <strong>@VideoGameEsoterica</strong> e <strong>@jedkelly7862</strong> pelas discussões e análises técnicas que inspiraram as melhorias presentes nesta versão State of the Art.
+                    </p>
+
+                    <div class="evolution-box">
+                        <h4>🌱 Evolução do Projeto Neste Repositório:</h4>
+                        <div class="evolution-tags">
+                            <span>✔ Unificação Monolítica do Código</span>
+                            <span>✔ Protocolo Multiplayer UDP P2P 60Hz</span>
+                            <span>✔ Mini-Mapa Compartilhado & Radar Live</span>
+                            <span>✔ Modo Hardcore (Permadeath Real)</span>
+                            <span>✔ Sistema de Troféus & Conquistas</span>
+                            <span>✔ Shaders Retrô Scanlines Clean & Trinitron</span>
+                            <span>✔ Ponte Live com Ghidra 11.4.2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: INSTALLATION & HOW TO RUN -->
+    <section class="section section-install" id="install">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fa-solid fa-terminal"></i> GUIA DE EXECUÇÃO</span>
+                <h2 class="section-title">Como Compilar e Jogar no PC</h2>
+                <p class="section-subtitle">Passo a passo simples para rodar o jogo nativamente no Windows.</p>
+            </div>
+
+            <div class="install-steps-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>Clonar o Repositório</h3>
+                    <p>Clone a branch de desenvolvimento com todo o código unificado:</p>
+                    <div class="code-box">
+                        <code>git clone -b dev https://github.com/gfdac/SymphonyRecomp.git</code>
+                        <button class="btn-copy" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>Adicionar a ROM (SLUS-00067)</h3>
+                    <p>Coloque a imagem do seu disco original de Castlevania SOTN (PS1) na pasta <code>disc/</code>.</p>
+                    <div class="code-box">
+                        <code>disc/Castlevania - Symphony of the Night (USA).bin</code>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>Compilar & Jogar</h3>
+                    <p>Execute o script inicial uma única vez para extrair e compilar os binários:</p>
+                    <div class="code-box">
+                        <code>.\windows_initial_build.bat</code>
+                        <button class="btn-copy" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                    <p class="text-muted mt-2">Para jogar posteriormente sem recompilar do zero:</p>
+                    <div class="code-box">
+                        <code>.\windows_run_no_build.bat</code>
+                        <button class="btn-copy" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <i class="fa-solid fa-moon"></i> Symphony<span class="logo-accent">Recomp</span>
+                </div>
+                <p>O port definitivo de Castlevania: Symphony of the Night para PC.</p>
+            </div>
+
+            <div class="footer-links">
+                <a href="https://github.com/gfdac/SymphonyRecomp/tree/dev" target="_blank"><i class="fa-brands fa-github"></i> Repositório dev</a>
+                <a href="INSTRUCTIONS_FOR_AI.md"><i class="fa-solid fa-robot"></i> Instruções para IAs & Devs</a>
+                <a href="../GUIA_ATALHOS.md"><i class="fa-solid fa-book"></i> Guia de Atalhos MD</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Castlevania é marca registrada da Konami. Este é um projeto de preservação histórica e engenharia reversa para fins educacionais.</p>
+        </div>
+    </footer>
+
+    <!-- JS SCRIPT -->
+    <script src="app.js"></script>
+</body>
+</html>
