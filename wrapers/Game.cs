@@ -94,7 +94,7 @@ public static class Game
     public const uint CanWarpMask = 0x0Eu;
     public const uint InvertedCastleFlag = 0x20u;
 
-    internal static IMemory M => RecompOne.Runtime.Runtime.Mem;
+    internal static IMemory M => RecompOne.Runtime.Runtime.Mem!;
 
     public static bool Available => RecompOne.Runtime.Runtime.Mem != null; //game is only available when mem is instantiated, adding this so no one tries to do stuff before it can
 

@@ -13,7 +13,6 @@ public sealed class StatsCheatPanel : IPanel
     public string TitleKey => "panel.cheats.stats";
     public bool IsOpen { get; set; }
 
-    bool _revealMap;
 
     public void Draw()
     {

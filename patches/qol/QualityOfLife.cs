@@ -1,4 +1,4 @@
-﻿using RecompOne.Runtime.Context;
+using RecompOne.Runtime.Context;
 using RecompOne.Runtime.Memory;
 using Sotn;
 
@@ -125,22 +125,20 @@ internal class QualityOfLife
                 m.WriteU16(0x80138fda, 0x10); // Soul Steal Timer = 10 fr
                 m.WriteU16(0x80097494, 0x80); // Button Tapped = Sq
             }
-        }
-        {
+
             // ↓↓ + L2 makes Tetra Spirit go
             if (m.ReadU16(0x80097490) == 0x4001)
             {
-                m.WriteU16(0x80138fd0, 0x07); // Soul Steal step 7
-                m.WriteU16(0x80138fd2, 0x10); // Soul Steal Timer = 10 fr
+                m.WriteU16(0x80138fd0, 0x07); // Tetra Spirit step 7
+                m.WriteU16(0x80138fd2, 0x10); // Tetra Spirit Timer = 10 fr
                 m.WriteU16(0x80097494, 0x80); // Button Tapped = Sq
             }
-        }
-        {
+
             // → | ← + L2 makes Hellfire go
             if (m.ReadU16(0x80097490) == 0x2001 || m.ReadU16(0x80097490) == 0x8001)
             {
-                m.WriteU16(0x80138fcc, 0x04); // Soul Steal step 7
-                m.WriteU16(0x80138fce, 0x10); // Soul Steal Timer = 10 fr
+                m.WriteU16(0x80138fcc, 0x04); // Hellfire step 4
+                m.WriteU16(0x80138fce, 0x10); // Hellfire Timer = 10 fr
                 m.WriteU16(0x80097494, 0x80); // Button Tapped = Sq
             }
         }

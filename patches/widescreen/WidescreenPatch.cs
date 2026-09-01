@@ -376,7 +376,7 @@ public static partial class WidescreenPatch
 
         if (foreground) //not sure if it is all correct
         {
-            _layerEvent.Context = null;
+            _layerEvent.Context = null!;
             _layerEvent.Memory = m;
             _layerEvent.Foreground = true;
             _layerEvent.Pool = pool;
