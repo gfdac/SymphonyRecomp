@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff3344" />
+      <stop offset="70%" stop-color="#b80018" />
+      <stop offset="100%" stop-color="#4a0008" />
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <circle cx="32" cy="32" r="28" fill="url(#moonGlow)" filter="url(#glow)" />
+  <path d="M14 36 C20 30, 24 38, 32 30 C40 38, 44 30, 50 36 C44 44, 38 38, 32 46 C26 38, 20 44, 14 36 Z" fill="#0b0a10" />
+</svg>
