@@ -44,9 +44,22 @@ Este documento reúne todas as teclas de atalho, controles e novos painéis impl
 - Teleporte instantâneo para mais de 25 zonas do Castelo Normal e Castelo Invertido.
 - Filtro inteligente *"Apenas Áreas Já Visitadas"* para manter a exploração orgânica.
 
-### ⚙️ 6. Opções de Qualidade de Vida (`Diversos -> Opções de Qualidade de Vida`)
+### 🌐 6. Multiplayer Co-op & Duelos PvP (`Diversos -> Multiplayer Co-op & PvP`)
+- **Lobby & Conexão P2P 60Hz**: Hospedar ou conectar via IP/Porta em rede local ou internet.
+- **Exploração Livre Desacoplada**: Cada jogador joga na sua própria tela sem limites de câmera ou tela dividida.
+- **Sincronização em Tempo Real**: Mini-mapa compartilhado, eventos de chefes, portas e alavancas.
+- **Buddy Warp**: Botão para se teleportar instantaneamente até a sala do seu parceiro.
+- **Chat da Sessão**: Mensagens de texto e avisos rápidos (*"Preciso de ajuda!"*, *"Chefe aqui!"*).
+- **Duelos no Coliseu**: Batalhas PvP equilibradas no Coliseu com placar de vitórias.
+
+### ☠️ 7. Dificuldade & Modo Hardcore (`Diversos -> Dificuldade & Hardcore`)
+- **Modo Hard**: Multiplicador de dano recebido (1.5x a 5.0x) e restrições anti-spam de poções.
+- **Modo HARDCORE (Permadeath)**: Se você morrer, o savegame é permanentemente deletado!
+
+### ⚙️ 8. Opções de Qualidade de Vida (`Diversos -> Opções de Qualidade de Vida`)
 - Alternância para ativar/desativar:
-  - *Corrida & Dash do Alucard*
+  - *Corrida & Dash do Alucard (Botas de Velocidade)*
+  - *Controles Aprimorados de Richter (Item Crash no Triângulo)*
   - *Troca Rápida de Armas*
   - *Transições Rápidas (Pular Salas de CD)*
   - *Música Secreta da Fada em Japonês*

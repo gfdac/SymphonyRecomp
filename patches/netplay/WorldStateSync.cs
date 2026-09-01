@@ -1,0 +1,70 @@
+using System;
+using RecompOne.Runtime.Host.Window;
+using RecompOne.Runtime.Memory;
+using Sotn;
+
+namespace Recompiled.Netplay;
+
+public static class WorldStateSync
+{
+    public static void SendSyncPacket()
+    {
+        if (!Game.Available || !NetworkManager.IsConnected) return;
+
+        // Read Map Visited Buffer (512 bytes for normal + inverted castles)
+        byte[] mapData = new byte[512];
+        for (uint i = 0; i < 512; i++)
+        {
+            mapData[i] = PSMemory.M.ReadU8(Map.CastleMapAddr + i);
+        }
+
+        // Read Time Attack / Boss Defeat events (64 bytes)
+        byte[] bossData = new byte[64];
+        for (uint i = 0; i < 64; i++)
+        {
+            bossData[i] = PSMemory.M.ReadU8(Progress.TimeAttackAddr + i);
+        }
+
+        byte[] payload = NetworkPacket.CreateWorldState(mapData, bossData);
+        NetworkManager.SendPacket(new NetworkPacket(PacketOpCode.WorldState, payload));
+    }
+
+    public static void ReceiveSyncPacket(byte[] payload, IMemory m)
+    {
+        if (!Game.Available || !NetworkPacket.ReadWorldState(payload, out byte[] mapBitset, out byte[] bossBitset))
+            return;
+
+        int newRoomsDiscovered = 0;
+
+        // Bitwise OR merge discovered map rooms
+        for (uint i = 0; i < mapBitset.Length && i < 512; i++)
+        {
+            byte localByte = m.ReadU8(Map.CastleMapAddr + i);
+            byte remoteByte = mapBitset[i];
+            byte merged = (byte)(localByte | remoteByte);
+
+            if (merged != localByte)
+            {
+                newRoomsDiscovered++;
+                m.WriteU8(Map.CastleMapAddr + i, merged);
+            }
+        }
+
+        // Sync Boss Defeats
+        for (uint i = 0; i < bossBitset.Length && i < 64; i += 2)
+        {
+            ushort localTime = m.ReadU16(Progress.TimeAttackAddr + i);
+            ushort remoteTime = BitConverter.ToUInt16(bossBitset, (int)i);
+
+            if (localTime == 0 && remoteTime > 0)
+            {
+                m.WriteU16(Progress.TimeAttackAddr + i, remoteTime);
+            }
+        }
+
+        if (newRoomsDiscovered > 0)
+        {
+            ToastNotifications.ShowText("🗺️ Mapa Compartilhado", $"{NetworkManager.RemotePlayerName} explorou novas áreas do castelo!", null, 3.0f);
+        }
+    }
+}

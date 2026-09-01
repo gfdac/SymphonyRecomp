@@ -1,0 +1,190 @@
+using System;
+using System.IO;
+using System.Text;
+
+namespace Recompiled.Netplay;
+
+public enum PacketOpCode : byte
+{
+    Ping = 0x01,
+    Pong = 0x02,
+    Handshake = 0x03,
+    HandshakeAck = 0x04,
+    Disconnect = 0x05,
+    PlayerTransform = 0x10,
+    WorldState = 0x20,
+    BuddyWarp = 0x30,
+    PvPHit = 0x40,
+    ChatMessage = 0x50
+}
+
+public sealed class NetworkPacket
+{
+    public PacketOpCode OpCode { get; set; }
+    public byte[] Payload { get; set; } = [];
+
+    public NetworkPacket(PacketOpCode opCode, byte[] payload)
+    {
+        OpCode = opCode;
+        Payload = payload;
+    }
+
+    public byte[] Serialize()
+    {
+        byte[] data = new byte[1 + Payload.Length];
+        data[0] = (byte)OpCode;
+        Buffer.BlockCopy(Payload, 0, data, 1, Payload.Length);
+        return data;
+    }
+
+    public static NetworkPacket? Deserialize(byte[] raw, int length)
+    {
+        if (raw == null || length < 1) return null;
+        PacketOpCode op = (PacketOpCode)raw[0];
+        byte[] payload = new byte[length - 1];
+        if (length > 1)
+        {
+            Buffer.BlockCopy(raw, 1, payload, 0, length - 1);
+        }
+        return new NetworkPacket(op, payload);
+    }
+
+    // 60Hz Player Transform Delta Packet (~36 bytes)
+    public static byte[] CreatePlayerTransform(
+        byte stageId,
+        byte roomX,
+        byte roomY,
+        short posX,
+        short posY,
+        short velX,
+        short velY,
+        bool facingLeft,
+        byte animId,
+        byte frameId,
+        ushort curHp,
+        ushort maxHp,
+        byte character,
+        byte paletteId,
+        byte attackTrigger,
+        byte subWeapon
+    )
+    {
+        using var ms = new MemoryStream(36);
+        using var w = new BinaryWriter(ms);
+        w.Write(stageId);
+        w.Write(roomX);
+        w.Write(roomY);
+        w.Write(posX);
+        w.Write(posY);
+        w.Write(velX);
+        w.Write(velY);
+        w.Write((byte)(facingLeft ? 1 : 0));
+        w.Write(animId);
+        w.Write(frameId);
+        w.Write(curHp);
+        w.Write(maxHp);
+        w.Write(character);
+        w.Write(paletteId);
+        w.Write(attackTrigger);
+        w.Write(subWeapon);
+        return ms.ToArray();
+    }
+
+    public static bool ReadPlayerTransform(
+        byte[] payload,
+        out byte stageId,
+        out byte roomX,
+        out byte roomY,
+        out short posX,
+        out short posY,
+        out short velX,
+        out short velY,
+        out bool facingLeft,
+        out byte animId,
+        out byte frameId,
+        out ushort curHp,
+        out ushort maxHp,
+        out byte character,
+        out byte paletteId,
+        out byte attackTrigger,
+        out byte subWeapon
+    )
+    {
+        stageId = roomX = roomY = animId = frameId = character = paletteId = attackTrigger = subWeapon = 0;
+        posX = posY = velX = velY = 0;
+        facingLeft = false;
+        curHp = maxHp = 0;
+
+        if (payload == null || payload.Length < 21) return false;
+
+        using var ms = new MemoryStream(payload);
+        using var r = new BinaryReader(ms);
+        stageId = r.ReadByte();
+        roomX = r.ReadByte();
+        roomY = r.ReadByte();
+        posX = r.ReadInt16();
+        posY = r.ReadInt16();
+        velX = r.ReadInt16();
+        velY = r.ReadInt16();
+        facingLeft = r.ReadByte() != 0;
+        animId = r.ReadByte();
+        frameId = r.ReadByte();
+        curHp = r.ReadUInt16();
+        maxHp = r.ReadUInt16();
+        character = r.ReadByte();
+        paletteId = r.ReadByte();
+        attackTrigger = r.ReadByte();
+        subWeapon = r.ReadByte();
+        return true;
+    }
+
+    // World State Sync (Visited map tiles, Boss Defeat bitmask, Levers)
+    public static byte[] CreateWorldState(byte[] mapBitset, byte[] bossBitset)
+    {
+        using var ms = new MemoryStream();
+        using var w = new BinaryWriter(ms);
+        w.Write((ushort)mapBitset.Length);
+        w.Write(mapBitset);
+        w.Write((ushort)bossBitset.Length);
+        w.Write(bossBitset);
+        return ms.ToArray();
+    }
+
+    public static bool ReadWorldState(byte[] payload, out byte[] mapBitset, out byte[] bossBitset)
+    {
+        mapBitset = [];
+        bossBitset = [];
+        if (payload == null || payload.Length < 4) return false;
+
+        using var ms = new MemoryStream(payload);
+        using var r = new BinaryReader(ms);
+        ushort mapLen = r.ReadUInt16();
+        mapBitset = r.ReadBytes(mapLen);
+        ushort bossLen = r.ReadUInt16();
+        bossBitset = r.ReadBytes(bossLen);
+        return true;
+    }
+
+    // Chat / Message Packet
+    public static byte[] CreateChat(string sender, string message)
+    {
+        using var ms = new MemoryStream();
+        using var w = new BinaryWriter(ms, Encoding.UTF8);
+        w.Write(sender);
+        w.Write(message);
+        return ms.ToArray();
+    }
+
+    public static bool ReadChat(byte[] payload, out string sender, out string message)
+    {
+        sender = "";
+        message = "";
+        if (payload == null || payload.Length < 2) return false;
+
+        using var ms = new MemoryStream(payload);
+        using var r = new BinaryReader(ms, Encoding.UTF8);
+        sender = r.ReadString();
+        message = r.ReadString();
+        return true;
+    }
+}

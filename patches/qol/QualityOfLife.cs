@@ -42,6 +42,7 @@ internal class QualityOfLife
         SkipCdRooms.Load();
         HardcoreMode.Load();
         RichterQoL.Load();
+        Recompiled.Netplay.NetworkManager.Load();
     }
 
     public static void Save()
@@ -68,6 +69,7 @@ internal class QualityOfLife
         SkipCdRooms.Save();
         HardcoreMode.Save();
         RichterQoL.Save();
+        Recompiled.Netplay.NetworkManager.Save();
 
         RecompOne.Runtime.Runtime.SaveView();
     }
@@ -81,6 +83,8 @@ internal class QualityOfLife
         SkipCdRooms.Update(c, m);
         HardcoreMode.Update(c, m);
         RichterQoL.Update(c, m);
+        Recompiled.Netplay.NetworkManager.Update(c, m);
+        Recompiled.Netplay.PvPManager.Update();
         // Colorblind Fixes
         if (QualityOfLife.ColorBlind == true)
         {

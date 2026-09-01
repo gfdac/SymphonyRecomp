@@ -15,6 +15,7 @@ public static class QualityOfLifeMenu
         PanelManager.Register(new AchievementsPanel());
         PanelManager.Register(new BossRespawnPanel());
         PanelManager.Register(new HardcoreModePanel());
+        PanelManager.Register(new Recompiled.Netplay.MultiplayerPanel());
 
         MenuRegistry.Menu("menu.misc").After("menu.mods")
             .Panel<QualityOfLifePanel>("panel.qol")
@@ -23,6 +24,7 @@ public static class QualityOfLifeMenu
             .Panel<BestiaryPanel>("panel.bestiary")
             .Panel<AchievementsPanel>("panel.achievements")
             .Panel<BossRespawnPanel>("panel.boss_respawn")
-            .Panel<HardcoreModePanel>("panel.difficulty");
+            .Panel<HardcoreModePanel>("panel.difficulty")
+            .Panel<Recompiled.Netplay.MultiplayerPanel>("panel.multiplayer");
     }
 }

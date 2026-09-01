@@ -152,6 +152,14 @@
             "zh-CN": "难度设置 & 专家模式",
             "fr-FR": "Difficulté & Hardcore"
         },
+        "panel.multiplayer": {
+            "en": "Multiplayer Co-op & PvP",
+            "pt-BR": "Multiplayer Co-op & PvP",
+            "es-419": "Multijugador Co-op y PvP",
+            "ja-JP": "マルチプレイヤー協力 & 対戦",
+            "zh-CN": "多人联机合作与对战",
+            "fr-FR": "Multijoueur Co-op & PvP"
+        },
         "qol.alucard_dash": {
             "en": "Alucard Sprint & Dash (Godspeed Boots)",
             "pt-BR": "Corrida & Dash do Alucard (Botas de Corrida)",
