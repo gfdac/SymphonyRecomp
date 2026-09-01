@@ -94,7 +94,15 @@ public static class NetworkManager
             TargetIp = ip;
             Port = port;
             Role = NetworkRole.Client;
-            _remoteEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+
+            IPAddress ipAddr;
+            if (!IPAddress.TryParse(ip, out ipAddr!))
+            {
+                var addresses = Dns.GetHostAddresses(ip);
+                ipAddr = addresses.Length > 0 ? addresses[0] : IPAddress.Loopback;
+            }
+
+            _remoteEndPoint = new IPEndPoint(ipAddr, port);
             _udp = new UdpClient();
             _udp.Connect(_remoteEndPoint);
             _cts = new CancellationTokenSource();

@@ -73,7 +73,7 @@ public static class HardcoreMode
         }
 
         // Permadeath Check (Hardcore Mode)
-        if (IsHardcore && curHp <= 0 && !_permadeathTriggered && !Game.InPrologue())
+        if (IsHardcore && curHp <= 0 && !_permadeathTriggered && StageManager.CurrentStage != Stage.Prologue)
         {
             _permadeathTriggered = true;
             TriggerPermadeath(m);
