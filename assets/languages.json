@@ -104,6 +104,86 @@
             "zh-CN": "改进选项",
             "fr-FR": "Options de confort"
         },
+        "panel.fast_travel": {
+            "en": "Fast Travel",
+            "pt-BR": "Viagem Rápida",
+            "es-419": "Viaje Rápido",
+            "ja-JP": "ファストトラベル",
+            "zh-CN": "快速传送",
+            "fr-FR": "Voyage Rapide"
+        },
+        "fast_travel.only_visited": {
+            "en": "Only Visited Areas",
+            "pt-BR": "Apenas Áreas Já Visitadas",
+            "es-419": "Solo Áreas Ya Visitadas",
+            "ja-JP": "探索済みのエリアのみ",
+            "zh-CN": "仅限已探索区域",
+            "fr-FR": "Uniquement les zones visitées"
+        },
+        "fast_travel.only_visited_hint": {
+            "en": "When enabled, you can only fast travel to areas where you have already revealed at least one room on the map.",
+            "pt-BR": "Quando ativado, você só pode viajar para áreas onde já revelou pelo menos uma sala no mapa.",
+            "es-419": "Cuando está activado, solo puedes viajar a áreas donde ya hayas revelado al menos una habitación en el mapa.",
+            "ja-JP": "有効にすると、マップ上で少なくとも1つの部屋を探索したエリアにのみファストトラベルできます。",
+            "zh-CN": "启用后，你只能传送到地图上已探索过的区域。",
+            "fr-FR": "Lorsque cette option est activée, vous ne pouvez vous déplacer que vers les zones où vous avez déjà découvert au moins une salle."
+        },
+        "fast_travel.not_visited": {
+            "en": "This area has not been visited yet.",
+            "pt-BR": "Esta área ainda não foi visitada.",
+            "es-419": "Esta área aún no ha sido visitada.",
+            "ja-JP": "このエリアはまだ探索されていません。",
+            "zh-CN": "该区域尚未探索。",
+            "fr-FR": "Cette zone n'a pas encore été visitée."
+        },
+        "fast_travel.first_castle": {
+            "en": "Normal Castle",
+            "pt-BR": "Castelo Normal",
+            "es-419": "Castillo Normal",
+            "ja-JP": "表城",
+            "zh-CN": "正城",
+            "fr-FR": "Château Normal"
+        },
+        "fast_travel.second_castle": {
+            "en": "Inverted Castle",
+            "pt-BR": "Castelo Invertido",
+            "es-419": "Castillo Invertido",
+            "ja-JP": "逆さ城",
+            "zh-CN": "逆城",
+            "fr-FR": "Château Inversé"
+        },
+        "fast_travel.title": {
+            "en": "Fast Travel",
+            "pt-BR": "Viagem Rápida",
+            "es-419": "Viaje Rápido",
+            "ja-JP": "ファストトラベル",
+            "zh-CN": "快速传送",
+            "fr-FR": "Voyage Rapide"
+        },
+        "fast_travel.teleported_to": {
+            "en": "Teleported to",
+            "pt-BR": "Viajou para",
+            "es-419": "Viajó a",
+            "ja-JP": "へテレポートしました: ",
+            "zh-CN": "已传送到: ",
+            "fr-FR": "Téléporté à"
+        },
+        "fast_travel.error_title": {
+            "en": "Teleport Unavailable",
+            "pt-BR": "Teleporte Indisponível",
+            "es-419": "Teletransporte No Disponible",
+            "ja-JP": "テレポート不可",
+            "zh-CN": "无法传送",
+            "fr-FR": "Téléportation indisponible"
+        },
+        "fast_travel.error_busy": {
+            "en": "Cannot fast travel right now (loading, paused, or in cutscene).",
+            "pt-BR": "Não é possível viajar agora (carregando, pausado ou em cutscene).",
+            "es-419": "No se puede viajar ahora (cargando, pausado o en cinemática).",
+            "ja-JP": "現在はテレポートできません（読み込み中、一時停止中、またはイベント中）。",
+            "zh-CN": "当前无法传送（正在加载、暂停或处于剧情中）。",
+            "fr-FR": "Impossible de se téléporter actuellement (chargement, pause ou cinématique)."
+        },
         "panel.randomizer": {
             "en": "Randomizer",
             "pt-BR": "Randomizer",
