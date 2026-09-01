@@ -1,7 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
 using RecompOne.Runtime.Context;
-using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Host.Window;
 using RecompOne.Runtime.Memory;
 using Sotn;
@@ -44,6 +43,17 @@ public static class QuickWeaponSwap
         RecompOne.Runtime.Runtime.SaveView();
     }
 
+    private static volatile bool _qTapped;
+
+    static QuickWeaponSwap()
+    {
+        RecompOne.Runtime.Events.Event.AddListener<RecompOne.Runtime.Events.KeyboardEvent>(e =>
+        {
+            if (e.Pressed && !e.Repeat && e.Key == (int)Silk.NET.Input.Key.Q)
+                _qTapped = true;
+        });
+    }
+
     public static void Update(CpuContext c, IMemory m)
     {
         if (!Enabled || !Game.Available || !Game.InGame || Game.IsLoading) return;
@@ -53,15 +63,8 @@ public static class QuickWeaponSwap
         ushort tapped = (ushort)(pad & ~_prevPad);
         _prevPad = pad;
 
-        bool qDown = false;
-        try
-        {
-            qDown = InputManager.IsKeyDown(Silk.NET.Input.Key.Q);
-        }
-        catch { }
-
-        bool qTapped = qDown && !_prevQ;
-        _prevQ = qDown;
+        bool qTapped = _qTapped;
+        _qTapped = false;
 
         // Trigger on R3 (Right analog stick button) or keyboard 'Q'
         bool r3Tapped = (tapped & (ushort)Button.R3) != 0;
