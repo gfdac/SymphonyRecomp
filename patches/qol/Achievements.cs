@@ -160,12 +160,12 @@ public static class Achievements
             }
 
             // Map completion check
-            int rooms = Map.Rooms;
+            int rooms = Map.VisitedCount;
             if (rooms >= 942) Unlock("map_100"); // 100% of first castle (~942 rooms)
             if (rooms >= 1890) Unlock("map_200"); // 200.6% (~1890 rooms)
 
             // Crissaegrim possession check
-            if (Inventory.HasItem(HandItem.Crissaegrim))
+            if (Inventory.HasHandItem(HandItem.Crissaegrim))
             {
                 Unlock("crissaegrim");
             }
