@@ -296,6 +296,22 @@
             "zh-CN": "启用后对于拥有无敌时间的技能，其无敌时间额外增加4帧。",
             "fr-FR": "Augmente de 4 frames l'invincibilité obtenu avec les objets qui en confèrent."
         },
+        "qol.quick_weapon_swap": {
+            "en": "Quick Weapon Swap (R3 / Q)",
+            "pt-BR": "Troca Rápida de Armas (R3 / Q)",
+            "es-419": "Cambio Rápido de Armas (R3 / Q)",
+            "ja-JP": "武器の素早い切り替え (R3 / Q)",
+            "zh-CN": "快速切换武器 (R3 / Q)",
+            "fr-FR": "Changement Rapide d'Arme (R3 / Q)"
+        },
+        "qol.quick_weapon_swap.hint": {
+            "en": "Cycle between 3 weapon loadouts on the fly by pressing R3 on your controller or Q on keyboard without pausing.",
+            "pt-BR": "Alterne instantaneamente entre 3 conjuntos de armas pressionando R3 no controle ou Q no teclado sem pausar o jogo.",
+            "es-419": "Cambia instantáneamente entre 3 conjuntos de armas presionando R3 en el control o Q en el teclado sin pausar.",
+            "ja-JP": "コントローラーのR3またはキーボードのQを押すことで、一時停止することなく3つの武器装備を素早く切り替えます。",
+            "zh-CN": "按下手柄R3键或键盘Q键，无需暂停游戏即可在3套武器配置之间即时切换。",
+            "fr-FR": "Basculez instantanément entre 3 ensembles d'armes en appuyant sur R3 sur votre manette ou Q sur le clavier sans mettre le jeu en pause."
+        },
         "qol.fairy_song": {
             "en": "Restore Sprite Familiar Nocturne Song",
             "pt-BR": "Restaurar a Canção Nocturne da Sprite",

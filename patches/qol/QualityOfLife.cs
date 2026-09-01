@@ -34,6 +34,8 @@ internal class QualityOfLife
 
         /* Enhancements */
         RestoreFairySong = v.GetBool("QolRestoreFairySong");
+
+        QuickWeaponSwap.Load();
     }
 
     public static void Save()
@@ -53,11 +55,14 @@ internal class QualityOfLife
         /* Enhancements */
         v.SetBool("QolRestoreFairySong", RestoreFairySong);
 
+        QuickWeaponSwap.Save();
+
         RecompOne.Runtime.Runtime.SaveView();
     }
     //note to eldrich from flaffy, later if possible try using the Pallete class, it has some helper functions to easy this out!
     public static void Apply(CpuContext c, IMemory m)
     {
+        QuickWeaponSwap.Update(c, m);
         // Colorblind Fixes
         if (QualityOfLife.ColorBlind == true)
         {

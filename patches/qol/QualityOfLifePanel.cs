@@ -46,6 +46,7 @@ public sealed class QualityOfLifePanel : IPanel
 
         /* Enhancements */
         ImGui.SeparatorText(Localization.T("qol.enhancements"));
+        dirty |= Toggle("qol.quick_weapon_swap", ref QuickWeaponSwap.Enabled);
         dirty |= Toggle("qol.fairy_song", ref QualityOfLife.RestoreFairySong);
 
         if (dirty) QualityOfLife.Save();
