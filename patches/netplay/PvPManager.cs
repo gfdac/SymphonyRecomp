@@ -21,9 +21,9 @@ public static class PvPManager
             return;
         }
 
-        bool localInColosseum = StageManager.CurrentStage == Stage.Colosseum || StageManager.CurrentStage == Stage.ReverseColosseum;
+        bool localInColosseum = Stages.Current == Stage.Colosseum || Stages.Current == Stage.ReverseColosseum;
         bool remoteInColosseum = (Stage)RemotePuppet.StageId == Stage.Colosseum || (Stage)RemotePuppet.StageId == Stage.ReverseColosseum;
-        bool sameRoom = RemotePuppet.RoomX == Map.CurrentRoomX && RemotePuppet.RoomY == Map.CurrentRoomY;
+        bool sameRoom = RemotePuppet.RoomX == Stages.RoomX && RemotePuppet.RoomY == Stages.RoomY;
 
         IsPvPActive = localInColosseum && remoteInColosseum && sameRoom;
 

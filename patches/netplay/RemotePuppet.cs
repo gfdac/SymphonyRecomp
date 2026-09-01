@@ -75,8 +75,8 @@ public static class RemotePuppet
     {
         if (!IsActive || !Game.Available || !Game.InGame || Game.IsLoading) return;
 
-        bool sameStage = StageId == (byte)StageManager.CurrentStage;
-        bool sameRoom = RoomX == (byte)Map.CurrentRoomX && RoomY == (byte)Map.CurrentRoomY;
+        bool sameStage = StageId == (byte)Stages.Current;
+        bool sameRoom = RoomX == (byte)Stages.RoomX && RoomY == (byte)Stages.RoomY;
 
         // Remote player is in the same room: render entity puppet
         if (sameStage && sameRoom)
@@ -88,7 +88,7 @@ public static class RemotePuppet
             var puppet = Entities.At(PuppetEntitySlot);
             puppet.PosX = (int)_interpX;
             puppet.PosY = (int)_interpY;
-            puppet.FacingLeft = FacingLeft;
+            puppet.FacingLeft = (ushort)(FacingLeft ? 1 : 0);
             puppet.Step = 1; // Active entity step
         }
         else

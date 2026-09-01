@@ -7,7 +7,11 @@ namespace Recompiled.Netplay;
 
 public static class WorldStateSync
 {
-    public static void SendSyncPacket()
+    // Buffer storing what the remote partner has explored separately
+    public static readonly byte[] RemoteMapBitset = new byte[512];
+    public static readonly byte[] LocalMapBitset = new byte[512];
+
+    public static void SendSyncPacket(IMemory m)
     {
         if (!Game.Available || !NetworkManager.IsConnected) return;
 
@@ -15,14 +19,16 @@ public static class WorldStateSync
         byte[] mapData = new byte[512];
         for (uint i = 0; i < 512; i++)
         {
-            mapData[i] = PSMemory.M.ReadU8(Map.CastleMapAddr + i);
+            byte b = m.ReadU8(Map.CastleMapAddr + i);
+            mapData[i] = b;
+            LocalMapBitset[i] = b;
         }
 
         // Read Time Attack / Boss Defeat events (64 bytes)
         byte[] bossData = new byte[64];
         for (uint i = 0; i < 64; i++)
         {
-            bossData[i] = PSMemory.M.ReadU8(Progress.TimeAttackAddr + i);
+            bossData[i] = m.ReadU8(Progress.TimeAttackAddr + i);
         }
 
         byte[] payload = NetworkPacket.CreateWorldState(mapData, bossData);
@@ -34,9 +40,12 @@ public static class WorldStateSync
         if (!Game.Available || !NetworkPacket.ReadWorldState(payload, out byte[] mapBitset, out byte[] bossBitset))
             return;
 
+        // Store partner's exploration map
+        Buffer.BlockCopy(mapBitset, 0, RemoteMapBitset, 0, Math.Min(mapBitset.Length, RemoteMapBitset.Length));
+
         int newRoomsDiscovered = 0;
 
-        // Bitwise OR merge discovered map rooms
+        // Bitwise OR merge discovered map rooms into game memory
         for (uint i = 0; i < mapBitset.Length && i < 512; i++)
         {
             byte localByte = m.ReadU8(Map.CastleMapAddr + i);

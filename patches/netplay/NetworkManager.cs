@@ -54,6 +54,7 @@ public static class NetworkManager
         TargetIp = v.GetString("NetplayTargetIp", "127.0.0.1");
         Port = v.GetInt("NetplayPort", 7777);
         LocalPlayerName = v.GetString("NetplayPlayerName", "Alucard");
+        NatHelper.FetchPublicIpAsync();
     }
 
     public static void Save()
@@ -75,6 +76,9 @@ public static class NetworkManager
             _udp = new UdpClient(port);
             _cts = new CancellationTokenSource();
             State = NetConnectionState.Listening;
+
+            NatHelper.TryOpenPort(port);
+            NatHelper.FetchPublicIpAsync();
 
             Task.Run(() => ReceiveLoop(_cts.Token));
             ToastNotifications.ShowText("🌐 Multiplayer Host", $"Servidor aberto na porta {port}. Aguardando parceiro...", null, 4.0f);
@@ -218,15 +222,15 @@ public static class NetworkManager
         if (_worldSyncTimer >= 3.0f)
         {
             _worldSyncTimer = 0f;
-            WorldStateSync.SendSyncPacket();
+            WorldStateSync.SendSyncPacket(m);
         }
 
         // 60Hz Local Player Transform Broadcast
         if (Game.Available && Game.InGame && !Game.IsLoading)
         {
-            byte stageId = (byte)StageManager.CurrentStage;
-            byte roomX = (byte)Map.CurrentRoomX;
-            byte roomY = (byte)Map.CurrentRoomY;
+            byte stageId = (byte)Stages.Current;
+            byte roomX = (byte)Stages.RoomX;
+            byte roomY = (byte)Stages.RoomY;
             short posX = (short)Player.PosX;
             short posY = (short)Player.PosY;
             short velX = (short)Player.VelocityX;
@@ -263,14 +267,14 @@ public static class NetworkManager
                 State = NetConnectionState.Connected;
                 SendPacket(new NetworkPacket(PacketOpCode.HandshakeAck, System.Text.Encoding.UTF8.GetBytes(LocalPlayerName)));
                 ToastNotifications.ShowText("⚔️ Multiplayer Conectado!", $"{RemotePlayerName} entrou na sessão!", null, 5.0f);
-                WorldStateSync.SendSyncPacket();
+                WorldStateSync.SendSyncPacket(m);
                 break;
 
             case PacketOpCode.HandshakeAck:
                 RemotePlayerName = System.Text.Encoding.UTF8.GetString(packet.Payload);
                 State = NetConnectionState.Connected;
                 ToastNotifications.ShowText("⚔️ Multiplayer Conectado!", $"Conectado ao mundo de {RemotePlayerName}!", null, 5.0f);
-                WorldStateSync.SendSyncPacket();
+                WorldStateSync.SendSyncPacket(m);
                 break;
 
             case PacketOpCode.Ping:
@@ -315,15 +319,14 @@ public static class NetworkManager
         int targetX = payload[1];
         int targetY = payload[2];
 
-        StageManager.SetStage(targetStage, targetX, targetY);
+        Stages.Load(targetStage, targetX, targetY);
         ToastNotifications.ShowText("✨ Buddy Warp!", $"Teleportado para a sala de {RemotePlayerName}!", null, 4.0f);
     }
 
     public static void RequestBuddyWarp()
     {
         if (!IsConnected || !RemotePuppet.IsActive) return;
-        byte[] payload = [(byte)RemotePuppet.StageId, (byte)RemotePuppet.RoomX, (byte)RemotePuppet.RoomY];
-        StageManager.SetStage((Stage)RemotePuppet.StageId, RemotePuppet.RoomX, RemotePuppet.RoomY);
+        Stages.Load((Stage)RemotePuppet.StageId, RemotePuppet.RoomX, RemotePuppet.RoomY);
         ToastNotifications.ShowText("✨ Buddy Warp!", $"Teleportando para {RemotePlayerName}...", null, 3.0f);
     }
 }
