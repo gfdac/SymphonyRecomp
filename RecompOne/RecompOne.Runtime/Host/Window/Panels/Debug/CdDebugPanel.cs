@@ -20,6 +20,7 @@ internal sealed class CdDebugPanel : IPanel
         if (!ImGui.Begin(this.Title(), ref open)) { IsOpen = open; ImGui.End(); return; }
 
         var cd = Runtime.Cd;
+        if (cd == null) { IsOpen = open; ImGui.End(); return; }
 
         cd.CaptureDebug(out var d, _events);
 

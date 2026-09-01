@@ -51,6 +51,7 @@ public static class LibCd
 
     static bool _readActive;
     static bool _xaActive;
+    public static bool XaActive => _xaActive;
     static byte _filterFile;
     static byte _filterChannel;
 

@@ -21,6 +21,7 @@ internal sealed class SpuViewerPanel : IPanel
         if (!ImGui.Begin(this.Title(), ref open)) { IsOpen = open; ImGui.End(); return; }
 
         var spu = Runtime.Spu;
+        if (spu == null) { IsOpen = open; ImGui.End(); return; }
         spu.CaptureDebug(_voices, out var st);
 
         DrawGlobals(st);
