@@ -39,6 +39,7 @@ internal class QualityOfLife
         SpellWheel.Load();
         Achievements.Load();
         AlucardDash.Load();
+        SkipCdRooms.Load();
     }
 
     public static void Save()
@@ -62,6 +63,7 @@ internal class QualityOfLife
         SpellWheel.Save();
         Achievements.Save();
         AlucardDash.Save();
+        SkipCdRooms.Save();
 
         RecompOne.Runtime.Runtime.SaveView();
     }
@@ -72,6 +74,7 @@ internal class QualityOfLife
         SpellWheel.Update(c, m);
         Achievements.Update(c, m);
         AlucardDash.Update(c, m);
+        SkipCdRooms.Update(c, m);
         // Colorblind Fixes
         if (QualityOfLife.ColorBlind == true)
         {

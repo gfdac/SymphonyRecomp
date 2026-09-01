@@ -136,6 +136,14 @@
             "zh-CN": "成就 & 奖杯",
             "fr-FR": "Succès & Trophées"
         },
+        "panel.boss_respawn": {
+            "en": "Boss Respawn & Arenas",
+            "pt-BR": "Reviver Chefes & Arenas",
+            "es-419": "Revivir Jefes & Arenas",
+            "ja-JP": "ボスの復活 & アリーナ",
+            "zh-CN": "首领复活 & 竞技场传送",
+            "fr-FR": "Résurrection des Boss & Arènes"
+        },
         "qol.alucard_dash": {
             "en": "Alucard Sprint & Dash (Godspeed Boots)",
             "pt-BR": "Corrida & Dash do Alucard (Botas de Corrida)",
@@ -143,6 +151,14 @@
             "ja-JP": "アルカードのダッシュ機能 (韋駄天の靴)",
             "zh-CN": "阿鲁卡多冲刺冲锋 (疾风之靴)",
             "fr-FR": "Course & Dash d'Alucard (Bottes de Vitesse)"
+        },
+        "qol.skip_cd_rooms": {
+            "en": "Fast Transitions (Skip CD Rooms)",
+            "pt-BR": "Transições Rápidas (Pular Salas de CD)",
+            "es-419": "Transiciones Rápidas (Saltar Salas de CD)",
+            "ja-JP": "高速トランジション (CD部屋スキップ)",
+            "zh-CN": "快速过图 (跳过CD加载走廊)",
+            "fr-FR": "Transitions Rapides (Passer les Salles CD)"
         },
         "qol.quick_weapon_swap": {
             "en": "Quick Weapon Swap (3 Loadouts: R3 / Q)",
