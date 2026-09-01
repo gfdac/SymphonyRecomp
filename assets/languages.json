@@ -112,6 +112,118 @@
             "zh-CN": "快速传送",
             "fr-FR": "Voyage Rapide"
         },
+        "panel.spell_wheel": {
+            "en": "Spell Quick Cast",
+            "pt-BR": "Magias Rápidas",
+            "es-419": "Hechizos Rápidos",
+            "ja-JP": "魔法クイックキャスト",
+            "zh-CN": "快捷施法",
+            "fr-FR": "Lancement Rapide de Sorts"
+        },
+        "spell.spell_list": {
+            "en": "Spell List",
+            "pt-BR": "Lista de Magias",
+            "es-419": "Lista de Hechizos",
+            "ja-JP": "呪文一覧",
+            "zh-CN": "法术列表",
+            "fr-FR": "Liste des Sorts"
+        },
+        "spell.quick_cast_keys": {
+            "en": "Quick Cast Keys (1-6)",
+            "pt-BR": "Atalhos Numéricos Rápidos (1-6)",
+            "es-419": "Teclas Rápidas (1-6)",
+            "ja-JP": "数字キーによる即時発動 (1-6)",
+            "zh-CN": "数字键快捷施法 (1-6)",
+            "fr-FR": "Touches Rapides (1-6)"
+        },
+        "spell.quick_cast_keys_hint": {
+            "en": "Press number keys 1-6 during gameplay to instantly cast spells without fighting commands.",
+            "pt-BR": "Pressione as teclas 1 a 6 durante o jogo para conjurar magias instantaneamente sem comandos de luta.",
+            "es-419": "Presiona las teclas 1 a 6 durante el juego para lanzar hechizos al instante.",
+            "ja-JP": "ゲーム中に数字キー1〜6を押すと、コマンド入力なしで瞬時に魔法を発動できます。",
+            "zh-CN": "在游戏中按下数字键1-6可立即释放法术，无需输入复杂搓招指令。",
+            "fr-FR": "Appuyez sur les touches 1 à 6 en jeu pour lancer instantanément des sorts sans commandes complexes."
+        },
+        "spell.not_enough_mp": {
+            "en": "Not enough MP to cast this spell.",
+            "pt-BR": "MP insuficiente para esta magia.",
+            "es-419": "MP insuficiente para este hechizo.",
+            "ja-JP": "MPが足りません。",
+            "zh-CN": "MP不足，无法释放该法术。",
+            "fr-FR": "MP insuffisant pour lancer ce sort."
+        },
+        "spell.mp_low_title": {
+            "en": "Low MP",
+            "pt-BR": "MP Insuficiente",
+            "es-419": "MP Insuficiente",
+            "ja-JP": "MP不足",
+            "zh-CN": "MP不足",
+            "fr-FR": "MP Insuffisant"
+        },
+        "spell.mp_low_msg": {
+            "en": "Not enough MP to cast spell",
+            "pt-BR": "MP insuficiente para conjurar a magia",
+            "es-419": "MP insuficiente para lanzar el hechizo",
+            "ja-JP": "魔法の発動に必要なMPが不足しています",
+            "zh-CN": "MP不足，无法释放法术",
+            "fr-FR": "MP insuffisant pour lancer le sort"
+        },
+        "spell.summon_spirit": {
+            "en": "Summon Spirit",
+            "pt-BR": "Invocar Espírito",
+            "es-419": "Invocar Espíritu",
+            "ja-JP": "サモン・スピリット",
+            "zh-CN": "召唤幽灵",
+            "fr-FR": "Invocation d'Esprit"
+        },
+        "spell.tetra_spirit": {
+            "en": "Tetra Spirit",
+            "pt-BR": "Tetra Espírito",
+            "es-419": "Tetra Espíritu",
+            "ja-JP": "テトラ・スピリット",
+            "zh-CN": "四魂召唤",
+            "fr-FR": "Tétra-Esprit"
+        },
+        "spell.dark_meta": {
+            "en": "Dark Metamorphosis",
+            "pt-BR": "Metamorfose Sombria",
+            "es-419": "Metamorfosis Oscura",
+            "ja-JP": "ダーク・メタモルフォーゼ",
+            "zh-CN": "暗黑蜕变",
+            "fr-FR": "Métamorphose Sombre"
+        },
+        "spell.hellfire": {
+            "en": "Hellfire",
+            "pt-BR": "Fogo do Inferno (Hellfire)",
+            "es-419": "Fuego Infernal (Hellfire)",
+            "ja-JP": "ヘルファイア",
+            "zh-CN": "地狱烈焰",
+            "fr-FR": "Feu de l'Enfer (Hellfire)"
+        },
+        "spell.soul_steal": {
+            "en": "Soul Steal",
+            "pt-BR": "Roubo de Almas (Soul Steal)",
+            "es-419": "Robo de Almas (Soul Steal)",
+            "ja-JP": "ソウルスティール",
+            "zh-CN": "夺魂咒",
+            "fr-FR": "Vol d'Âme (Soul Steal)"
+        },
+        "spell.sword_brothers": {
+            "en": "Sword Brothers",
+            "pt-BR": "Irmãos da Espada",
+            "es-419": "Hermanos de la Espada",
+            "ja-JP": "百剣の誓い (ソードブラザーズ)",
+            "zh-CN": "百剑之誓",
+            "fr-FR": "Frères de l'Épée"
+        },
+        "spell.wing_smash": {
+            "en": "Wing Smash",
+            "pt-BR": "Investida Alada (Wing Smash)",
+            "es-419": "Embate Alado (Wing Smash)",
+            "ja-JP": "ウィング・スマッシュ",
+            "zh-CN": "冲刺碎击 (Wing Smash)",
+            "fr-FR": "Frappe Ailée (Wing Smash)"
+        },
         "fast_travel.only_visited": {
             "en": "Only Visited Areas",
             "pt-BR": "Apenas Áreas Já Visitadas",

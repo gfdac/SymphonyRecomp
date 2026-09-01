@@ -36,6 +36,7 @@ internal class QualityOfLife
         RestoreFairySong = v.GetBool("QolRestoreFairySong");
 
         QuickWeaponSwap.Load();
+        SpellWheel.Load();
     }
 
     public static void Save()
@@ -56,6 +57,7 @@ internal class QualityOfLife
         v.SetBool("QolRestoreFairySong", RestoreFairySong);
 
         QuickWeaponSwap.Save();
+        SpellWheel.Save();
 
         RecompOne.Runtime.Runtime.SaveView();
     }
@@ -63,6 +65,7 @@ internal class QualityOfLife
     public static void Apply(CpuContext c, IMemory m)
     {
         QuickWeaponSwap.Update(c, m);
+        SpellWheel.Update(c, m);
         // Colorblind Fixes
         if (QualityOfLife.ColorBlind == true)
         {
