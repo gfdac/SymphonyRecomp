@@ -40,6 +40,7 @@ internal class QualityOfLife
         Achievements.Load();
         AlucardDash.Load();
         SkipCdRooms.Load();
+        HardcoreMode.Load();
     }
 
     public static void Save()
@@ -64,6 +65,7 @@ internal class QualityOfLife
         Achievements.Save();
         AlucardDash.Save();
         SkipCdRooms.Save();
+        HardcoreMode.Save();
 
         RecompOne.Runtime.Runtime.SaveView();
     }
@@ -75,6 +77,7 @@ internal class QualityOfLife
         Achievements.Update(c, m);
         AlucardDash.Update(c, m);
         SkipCdRooms.Update(c, m);
+        HardcoreMode.Update(c, m);
         // Colorblind Fixes
         if (QualityOfLife.ColorBlind == true)
         {

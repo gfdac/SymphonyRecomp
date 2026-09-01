@@ -14,6 +14,7 @@ public static class QualityOfLifeMenu
         PanelManager.Register(new BestiaryPanel());
         PanelManager.Register(new AchievementsPanel());
         PanelManager.Register(new BossRespawnPanel());
+        PanelManager.Register(new HardcoreModePanel());
 
         MenuRegistry.Menu("menu.misc").After("menu.mods")
             .Panel<QualityOfLifePanel>("panel.qol")
@@ -21,6 +22,7 @@ public static class QualityOfLifeMenu
             .Panel<SpellWheelPanel>("panel.spell_wheel")
             .Panel<BestiaryPanel>("panel.bestiary")
             .Panel<AchievementsPanel>("panel.achievements")
-            .Panel<BossRespawnPanel>("panel.boss_respawn");
+            .Panel<BossRespawnPanel>("panel.boss_respawn")
+            .Panel<HardcoreModePanel>("panel.difficulty");
     }
 }

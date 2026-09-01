@@ -24,24 +24,24 @@ public sealed class BossRespawnPanel : IPanel
     public static readonly BossData[] Bosses =
     [
         // Normal Castle Bosses
-        new("Slogra & Gaibon", TimeAttackEvent.SlograGaibonDefeat, Stage.Laboratory, 44, 21),
+        new("Slogra & Gaibon", TimeAttackEvent.SlograGaibonDefeat, Stage.AlchemyLaboratory, 44, 21),
         new("Doppleganger Lv10", TimeAttackEvent.Doppleganger10Defeat, Stage.OuterWall, 62, 19),
         new("Minotaur & Werewolf", TimeAttackEvent.MinotaurWerewolfDefeat, Stage.Colosseum, 21, 23),
-        new("Scylla", TimeAttackEvent.ScyllaDefeat, Stage.Caverns, 56, 38),
+        new("Scylla", TimeAttackEvent.ScyllaDefeat, Stage.UndergroundCaverns, 56, 38),
         new("Hippogryph", TimeAttackEvent.HippogryphDefeat, Stage.RoyalChapel, 11, 20),
-        new("Olrox", TimeAttackEvent.OlroxDefeat, Stage.OlroxQuarters, 34, 18),
+        new("Olrox", TimeAttackEvent.OlroxDefeat, Stage.OlroxsQuarters, 34, 18),
         new("Granfaloon (Legion)", TimeAttackEvent.GranfaloonDefeat, Stage.Catacombs, 4, 38),
         new("Cerberus", TimeAttackEvent.CerberusDefeat, Stage.AbandonedMine, 38, 48),
         new("Succubus (Nightmare)", TimeAttackEvent.SuccubusDefeat, Stage.Nightmare, 2, 2),
         new("Karasuman", TimeAttackEvent.KarasumanDefeat, Stage.ClockTower, 50, 8),
-        new("Lesser Demon", TimeAttackEvent.LesserDemonDefeat, Stage.Library, 52, 27),
+        new("Lesser Demon", TimeAttackEvent.LesserDemonDefeat, Stage.LongLibrary, 52, 27),
 
         // Inverted Castle Bosses
         new("Darkwing Bat", TimeAttackEvent.DarkwingBatDefeat, Stage.ReverseClockTower, 13, 55),
         new("The Creature", TimeAttackEvent.CreatureDefeat, Stage.ReverseOuterWall, 1, 44),
         new("Medusa", TimeAttackEvent.MedusaDefeat, Stage.AntiChapel, 52, 43),
-        new("Akmodan II", TimeAttackEvent.AkmodanDefeat, Stage.DeathWingLair, 29, 45),
-        new("Death", TimeAttackEvent.DeathDefeat, Stage.ReverseMine, 25, 15),
+        new("Akmodan II", TimeAttackEvent.AkmodanDefeat, Stage.DeathWingsLair, 29, 45),
+        new("Death", TimeAttackEvent.DeathDefeat, Stage.Cave, 25, 15),
         new("Doppleganger Lv40", TimeAttackEvent.Doppleganger40Defeat, Stage.ReverseCaverns, 7, 25),
         new("Fake Trevor, Grant, Sypha", TimeAttackEvent.TrioDefeat, Stage.ReverseColosseum, 42, 40),
         new("Galamoth", TimeAttackEvent.GalamothDefeat, Stage.FloatingCatacombs, 59, 25),
