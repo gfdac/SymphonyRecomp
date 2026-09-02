@@ -1,6 +1,7 @@
 # 🦇 Castlevania: Symphony of the Night — SymphonyRecomp (State of the Art Edition)
 
 [![Platform: Windows x64](https://img.shields.io/badge/Platform-Windows%20x64-blue.svg)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
+[![Website: Online Demo](https://img.shields.io/badge/Website-Online%20Guide%20%26%20Radar-red.svg)](https://gfdac.github.io/SymphonyRecomp/)
 [![Engine: .NET 10 C#](https://img.shields.io/badge/Engine-.NET%2010%20C%23-purple.svg)](https://dotnet.microsoft.com/)
 [![Multiplayer: P2P 60Hz](https://img.shields.io/badge/Multiplayer-UDP%2060Hz%20Co--op%20%26%20PvP-green.svg)](#-1-multiplayer-co-op--duelos-pvp-60hz-p2p)
 [![Mode: Hardcore Permadeath](https://img.shields.io/badge/Challenge-Hardcore%20Permadeath-crimson.svg)](#-2-modo-hard--modo-hardcore-permadeath)
