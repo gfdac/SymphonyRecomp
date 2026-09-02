@@ -40,8 +40,11 @@
             </nav>
 
             <div class="nav-actions">
+                <a href="https://mister4all.com/#download" target="_blank" class="btn-mister-nav" title="Baixar no mister4all.com">
+                    <i class="fa-solid fa-bolt"></i> <span>MiSTer 4 ALL</span>
+                </a>
                 <a href="https://github.com/gfdac/SymphonyRecomp/tree/dev" target="_blank" class="btn-github">
-                    <i class="fa-brands fa-github"></i> <span>GitHub (dev)</span>
+                    <i class="fa-brands fa-github"></i> <span>GitHub</span>
                 </a>
             </div>
         </div>
@@ -439,47 +442,100 @@
         </div>
     </section>
 
-    <!-- SECTION: INSTALLATION & HOW TO RUN -->
+    <!-- SECTION: HOW TO PLAY & LAUNCH -->
     <section class="section section-install" id="install">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge"><i class="fa-solid fa-terminal"></i> GUIA DE EXECUÇÃO</span>
-                <h2 class="section-title">Como Compilar e Jogar no PC</h2>
-                <p class="section-subtitle">Passo a passo simples para rodar o jogo nativamente no Windows.</p>
+                <span class="section-badge"><i class="fa-solid fa-gamepad"></i> EXPERIÊNCIA DEFINITIVA</span>
+                <h2 class="section-title">Como Jogar no PC com o <span class="text-gradient-emerald">MiSTer 4 ALL</span></h2>
+                <p class="section-subtitle">
+                    O jeito mais rápido, moderno e sem complicação de rodar o <strong>SymphonyRecomp</strong>: sem compilações manuais, com menu OSD instantâneo, shaders CRT em tempo real e controles automáticos plug-and-play.
+                </p>
             </div>
 
-            <div class="install-steps-grid">
-                <div class="step-card">
-                    <div class="step-num">1</div>
-                    <h3>Clonar o Repositório</h3>
-                    <p>Clone a branch de desenvolvimento com todo o código unificado:</p>
-                    <div class="code-box">
-                        <code>git clone -b dev https://github.com/gfdac/SymphonyRecomp.git</code>
-                        <button class="btn-copy" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i></button>
+            <!-- MISTER 4 ALL SPOTLIGHT HERO CARD -->
+            <div class="mister-spotlight-card">
+                <div class="mister-spotlight-badge">
+                    <span><i class="fa-solid fa-bolt"></i> RECOMENDADO • EMULADOR RETRÔ PORTÁTIL PARA WINDOWS</span>
+                </div>
+                <div class="mister-spotlight-content">
+                    <div class="mister-spotlight-info">
+                        <div class="mister-brand-title">
+                            <span class="mister-bolt">⚡</span> MiSTer <span class="mister-green-text">4 ALL</span>
+                            <span class="mister-version-badge">v0.9.0</span>
+                        </div>
+                        <p class="mister-spotlight-desc">
+                            O <strong>MiSTer 4 ALL</strong> integra a categoria <strong>Ports & Recomp</strong> com suporte direto ao SymphonyRecomp. Zero instaladores, zero complicação: baixe o aplicativo portátil, selecione o jogo e desfrute de 60 FPS nativos com áudio WASAPI de ultra-baixa latência.
+                        </p>
+                        <div class="mister-features-tags">
+                            <span><i class="fa-solid fa-check"></i> Executável Único x64</span>
+                            <span><i class="fa-solid fa-check"></i> 10 Shaders CRT Dinâmicos</span>
+                            <span><i class="fa-solid fa-check"></i> XInput Plug & Play</span>
+                            <span><i class="fa-solid fa-check"></i> Netplay 2P Online</span>
+                        </div>
+                    </div>
+                    <div class="mister-spotlight-actions">
+                        <a href="https://mister4all.com/#download" target="_blank" class="btn btn-mister-primary">
+                            <i class="fa-solid fa-bolt"></i> Baixar no MiSTer 4 ALL
+                        </a>
+                        <a href="https://youtube.com/@GuhClemente" target="_blank" class="btn btn-youtube-mister">
+                            <i class="fa-brands fa-youtube"></i> Canal @GuhClemente
+                        </a>
                     </div>
                 </div>
+            </div>
 
-                <div class="step-card">
-                    <div class="step-num">2</div>
-                    <h3>Adicionar a ROM (SLUS-00067)</h3>
-                    <p>Coloque a imagem do seu disco original de Castlevania SOTN (PS1) na pasta <code>disc/</code>.</p>
-                    <div class="code-box">
-                        <code>disc/Castlevania - Symphony of the Night (USA).bin</code>
+            <!-- 3 EASY STEPS TO PLAY WITH MISTER 4 ALL -->
+            <div class="mister-steps-grid">
+                <div class="mister-step-card">
+                    <div class="mister-step-header">
+                        <div class="mister-step-badge">PASSO 1</div>
+                        <div class="mister-step-icon"><i class="fa-solid fa-cloud-arrow-down"></i></div>
                     </div>
+                    <h3>Baixar o MiSTer 4 ALL</h3>
+                    <p>Acesse a seção de download oficial em <a href="https://mister4all.com/#download" target="_blank" class="text-link">mister4all.com/#download</a> e baixe o aplicativo portátil para Windows 10/11 (x64). Não requer instalação nem grava registros no sistema.</p>
                 </div>
 
-                <div class="step-card">
-                    <div class="step-num">3</div>
-                    <h3>Compilar & Jogar</h3>
-                    <p>Execute o script inicial uma única vez para extrair e compilar os binários:</p>
-                    <div class="code-box">
-                        <code>.\windows_initial_build.bat</code>
-                        <button class="btn-copy" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i></button>
+                <div class="mister-step-card">
+                    <div class="mister-step-header">
+                        <div class="mister-step-badge">PASSO 2</div>
+                        <div class="mister-step-icon"><i class="fa-solid fa-list-check"></i></div>
                     </div>
-                    <p class="text-muted mt-2">Para jogar posteriormente sem recompilar do zero:</p>
-                    <div class="code-box">
-                        <code>.\windows_run_no_build.bat</code>
-                        <button class="btn-copy" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i></button>
+                    <h3>Acessar Ports & Recomp</h3>
+                    <p>Abra o MiSTer 4 ALL e use as setas do teclado ou o direcional do seu controle para navegar no menu OSD até a categoria <strong>&gt; Ports & Recomp</strong> e selecione <strong>Castlevania: Symphony of the Night</strong>.</p>
+                </div>
+
+                <div class="mister-step-card">
+                    <div class="mister-step-header">
+                        <div class="mister-step-badge">PASSO 3</div>
+                        <div class="mister-step-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    </div>
+                    <h3>Plugar o Controle e Jogar!</h3>
+                    <p>Conecte qualquer controle (Xbox, PS4/PS5, 8BitDo ou genérico XInput). O jogo inicia imediatamente a 60 FPS nativos, com suporte a Shaders CRT, atalhos de magias rápidos e Co-op Multiplayer!</p>
+                </div>
+            </div>
+
+            <!-- DEV COMPILATION BOX -->
+            <div class="dev-box">
+                <div class="dev-badge"><i class="fa-solid fa-code"></i> MODO DESENVOLVEDOR & CODING</div>
+                <h4>Deseja compilar e modificar o código-fonte C# (.NET 10)?</h4>
+                <p class="dev-box-desc">
+                    Se você é programador ou deseja criar seus próprios mods e patches no código C#, clone o repositório e execute a compilação inicial:
+                </p>
+                <div class="dev-steps-row">
+                    <div class="dev-step-item">
+                        <label>1. Clonar a branch de desenvolvimento:</label>
+                        <div class="code-box">
+                            <code>git clone -b dev https://github.com/gfdac/SymphonyRecomp.git</code>
+                            <button class="btn-copy" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div class="dev-step-item">
+                        <label>2. Inserir SLUS-00067 em <code>disc/</code> e compilar:</label>
+                        <div class="code-box">
+                            <code>.\windows_initial_build.bat</code>
+                            <button class="btn-copy" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -493,13 +549,14 @@
                 <div class="footer-logo">
                     <i class="fa-solid fa-moon"></i> Symphony<span class="logo-accent">Recomp</span>
                 </div>
-                <p>O port definitivo de Castlevania: Symphony of the Night para PC.</p>
+                <p>O port definitivo de Castlevania: Symphony of the Night para PC • Integrado ao ecossistema MiSTer 4 ALL.</p>
             </div>
 
             <div class="footer-links">
+                <a href="https://mister4all.com/#download" target="_blank"><i class="fa-solid fa-bolt"></i> MiSTer 4 ALL</a>
                 <a href="https://github.com/gfdac/SymphonyRecomp/tree/dev" target="_blank"><i class="fa-brands fa-github"></i> Repositório dev</a>
-                <a href="INSTRUCTIONS_FOR_AI.md"><i class="fa-solid fa-robot"></i> Instruções para IAs & Devs</a>
-                <a href="../GUIA_ATALHOS.md"><i class="fa-solid fa-book"></i> Guia de Atalhos MD</a>
+                <a href="https://github.com/gfdac/SymphonyRecomp/blob/dev/website/INSTRUCTIONS_FOR_AI.md" target="_blank"><i class="fa-solid fa-robot"></i> Instruções para IAs</a>
+                <a href="https://github.com/gfdac/SymphonyRecomp/blob/dev/GUIA_ATALHOS.md" target="_blank"><i class="fa-solid fa-book"></i> Guia de Atalhos MD</a>
             </div>
         </div>
         <div class="footer-bottom">

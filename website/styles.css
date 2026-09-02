@@ -171,6 +171,29 @@ h1, h2, h3, h4, .font-gothic {
     transform: translateY(-2px);
 }
 
+.btn-mister-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.15);
+    color: #6ee7b7;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-mister-nav:hover {
+    background: rgba(16, 185, 129, 0.35);
+    color: #fff;
+    border-color: #10b981;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+    transform: translateY(-2px);
+}
+
 .btn-github {
     display: flex;
     align-items: center;
@@ -765,48 +788,296 @@ kbd {
     border-radius: var(--radius-full);
 }
 
-/* INSTALL STEPS */
-.install-steps-grid {
+/* MISTER 4 ALL SPOTLIGHT & HOW TO PLAY */
+.text-gradient-emerald {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mister-spotlight-card {
+    background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.12) 0%, rgba(12, 10, 18, 0.95) 70%);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1), 0 0 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.mister-spotlight-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #10b981, #34d399, transparent);
+}
+
+.mister-spotlight-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.15);
+    color: #6ee7b7;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.mister-spotlight-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 32px;
+    align-items: center;
+}
+
+.mister-brand-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.mister-bolt {
+    color: #facc15;
+    text-shadow: 0 0 12px rgba(250, 204, 21, 0.6);
+}
+
+.mister-green-text {
+    color: #34d399;
+    text-shadow: 0 0 16px rgba(52, 211, 153, 0.4);
+}
+
+.mister-version-badge {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    background: #064e3b;
+    color: #6ee7b7;
+    border: 1px solid #059669;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.mister-spotlight-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.mister-features-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.mister-features-tags span {
+    font-size: 0.8rem;
+    background: rgba(16, 185, 129, 0.1);
+    color: #a7f3d0;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mister-features-tags span i {
+    color: #34d399;
+}
+
+.mister-spotlight-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: rgba(8, 7, 13, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-mister-primary {
+    background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+    color: #032014 !important;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 16px 24px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+    border: none;
+}
+
+.btn-mister-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
+    filter: brightness(1.1);
+}
+
+.btn-youtube-mister {
+    background: rgba(239, 68, 68, 0.12);
+    color: #fca5a5 !important;
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.btn-youtube-mister:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: #ef4444;
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+/* 3 STEPS GRID */
+.mister-steps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
+    margin-bottom: 40px;
 }
 
-.step-card {
+.mister-step-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 28px;
+    transition: var(--transition);
     position: relative;
-}
-
-.step-num {
-    width: 36px;
-    height: 36px;
-    background: var(--accent-red);
-    color: #fff;
-    font-weight: 700;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin-bottom: 16px;
-    box-shadow: 0 0 12px var(--accent-red-glow);
+    flex-direction: column;
 }
 
-.step-card h3 {
+.mister-step-card:hover {
+    border-color: rgba(16, 185, 129, 0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.mister-step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.mister-step-badge {
+    background: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    letter-spacing: 0.5px;
+}
+
+.mister-step-icon {
+    font-size: 1.5rem;
+    color: #34d399;
+}
+
+.mister-step-card h3 {
     font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.mister-step-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.text-link {
+    color: #34d399;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.text-link:hover {
+    color: #6ee7b7;
+}
+
+/* DEV COMPILATION ACCORDION / BOX */
+.dev-box {
+    background: #0b0913;
+    border: 1px solid #231c33;
+    border-radius: var(--radius-lg);
+    padding: 28px;
+}
+
+.dev-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.dev-box h4 {
+    font-size: 1.1rem;
+    color: #fff;
     margin-bottom: 10px;
 }
 
-.step-card p {
+.dev-box-desc {
     font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.dev-steps-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+}
+
+.dev-step-item label {
+    display: block;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    margin-bottom: 14px;
+    margin-bottom: 6px;
+    font-weight: 600;
 }
 
 .code-box {
-    background: #09080e;
+    background: #06050a;
     border: 1px solid #2d2642;
     border-radius: var(--radius-sm);
     padding: 10px 14px;
@@ -829,6 +1100,12 @@ kbd {
 
 .btn-copy:hover {
     color: #fff;
+}
+
+@media (max-width: 850px) {
+    .mister-spotlight-content {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* FOOTER */
