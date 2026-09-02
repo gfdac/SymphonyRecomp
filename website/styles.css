@@ -172,47 +172,27 @@ h1, h2, h3, h4, .font-gothic {
 }
 
 .btn-mister-nav {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(16, 185, 129, 0.15);
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.2) 0%, rgba(16, 185, 129, 0.3) 100%);
     color: #6ee7b7;
-    border: 1px solid rgba(16, 185, 129, 0.4);
-    padding: 8px 16px;
+    border: 1px solid rgba(16, 185, 129, 0.5);
+    padding: 8px 18px;
     border-radius: var(--radius-full);
     font-size: 0.85rem;
     font-weight: 700;
     text-decoration: none;
     transition: var(--transition);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
 }
 
 .btn-mister-nav:hover {
-    background: rgba(16, 185, 129, 0.35);
-    color: #fff;
-    border-color: #10b981;
-    box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: #022c19 !important;
+    border-color: #34d399;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
     transform: translateY(-2px);
-}
-
-.btn-github {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #201a33;
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: var(--radius-full);
-    font-size: 0.85rem;
-    font-weight: 600;
-    border: 1px solid var(--border-color);
-    transition: var(--transition);
-}
-
-.btn-github:hover {
-    background: var(--accent-red);
-    border-color: var(--accent-red);
-    box-shadow: 0 0 15px var(--accent-red-glow);
 }
 
 /* HERO SECTION */

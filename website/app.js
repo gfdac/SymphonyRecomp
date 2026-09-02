@@ -1,11 +1,24 @@
 // ==========================================================================
-// SymphonyRecomp - Interactive App Logic & Multiplayer Radar Simulator
+// SymphonyRecomp - Interactive App Logic, Radar Simulator & GA4 Analytics
 // ==========================================================================
+
+// Global safe GA4 event tracking helper
+function trackEvent(eventName, params = {}) {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, {
+            ...params,
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: window.location.pathname
+        });
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     initRadarSimulator();
     initShortcutSearch();
     initNavbarScroll();
+    initAnalyticsTrackers();
 });
 
 // 1. Interactive Co-op Radar Simulator (Canvas)
@@ -112,6 +125,12 @@ function initRadarSimulator() {
             const cur = mapGrid[remotePos.y][remotePos.x];
             if (cur === 1 || cur === 3) mapGrid[remotePos.y][remotePos.x] = 3;
             else mapGrid[remotePos.y][remotePos.x] = 2;
+
+            trackEvent('radar_simulate_move', {
+                category: 'Radar Simulator',
+                player_x: remotePos.x,
+                player_y: remotePos.y
+            });
         });
     }
 
@@ -123,6 +142,12 @@ function initRadarSimulator() {
             localPos.y = remotePos.y;
             mapGrid[localPos.y][localPos.x] = 3;
             warpAnim = 20;
+
+            trackEvent('radar_buddy_warp', {
+                category: 'Radar Simulator',
+                target_x: localPos.x,
+                target_y: localPos.y
+            });
         });
     }
 }
@@ -133,14 +158,31 @@ function initShortcutSearch() {
     const table = document.getElementById('shortcutsTable');
     if (!input || !table) return;
 
+    let searchTimeout;
+
     input.addEventListener('input', () => {
         const query = input.value.toLowerCase().trim();
         const rows = table.querySelectorAll('tbody tr');
+        let matchCount = 0;
 
         rows.forEach(row => {
             const text = row.innerText.toLowerCase();
-            row.style.display = text.includes(query) ? '' : 'none';
+            const matched = text.includes(query);
+            row.style.display = matched ? '' : 'none';
+            if (matched) matchCount++;
         });
+
+        // Debounced search analytics
+        clearTimeout(searchTimeout);
+        if (query.length >= 2) {
+            searchTimeout = setTimeout(() => {
+                trackEvent('shortcut_search', {
+                    category: 'Cheatsheet',
+                    search_term: query,
+                    results_count: matchCount
+                });
+            }, 600);
+        }
     });
 }
 
@@ -171,5 +213,109 @@ window.copyCode = function(button) {
         setTimeout(() => {
             icon.className = 'fa-regular fa-copy';
         }, 2000);
+
+        trackEvent('copy_code_snippet', {
+            category: 'Developer',
+            code_snippet: code.substring(0, 60)
+        });
     });
 };
+
+// 5. Advanced GA4 Tracking (Outbound, CTAs, Sections, Scroll Depth, Heartbeat)
+function initAnalyticsTrackers() {
+    // A. Track All Outbound & CTA Clicks
+    document.querySelectorAll('a').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            const href = anchor.getAttribute('href') || '';
+            const text = (anchor.innerText || '').trim();
+
+            // MiSTer 4 ALL Download Clicks
+            if (href.includes('mister4all.com')) {
+                trackEvent('mister4all_download_click', {
+                    category: 'Conversion',
+                    link_url: href,
+                    button_text: text,
+                    placement: anchor.closest('nav') ? 'navbar' : (anchor.closest('.mister-spotlight-card') ? 'spotlight' : (anchor.closest('.footer') ? 'footer' : 'body'))
+                });
+            }
+            // YouTube Channel Clicks
+            else if (href.includes('youtube.com')) {
+                trackEvent('youtube_channel_click', {
+                    category: 'Outbound',
+                    link_url: href,
+                    channel: '@GuhClemente'
+                });
+            }
+            // GitHub Links
+            else if (href.includes('github.com')) {
+                trackEvent('github_link_click', {
+                    category: 'Outbound',
+                    link_url: href,
+                    target: text
+                });
+            }
+            // Internal Navigation Anchor Links
+            else if (href.startsWith('#')) {
+                trackEvent('navigation_click', {
+                    category: 'Navigation',
+                    target_section: href,
+                    link_text: text
+                });
+            }
+        });
+    });
+
+    // B. Track Section Views (Intersection Observer)
+    if ('IntersectionObserver' in window) {
+        const seenSections = new Set();
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    if (id && !seenSections.has(id)) {
+                        seenSections.add(id);
+                        trackEvent('section_view', {
+                            category: 'Engagement',
+                            section_id: id
+                        });
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('section[id]').forEach(sec => {
+            sectionObserver.observe(sec);
+        });
+    }
+
+    // C. Scroll Depth Milestones (25%, 50%, 75%, 90%)
+    const scrollMilestones = [25, 50, 75, 90];
+    const reachedMilestones = new Set();
+
+    window.addEventListener('scroll', () => {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollHeight <= 0) return;
+        const scrollPercent = Math.round((window.scrollY / scrollHeight) * 100);
+
+        scrollMilestones.forEach(milestone => {
+            if (scrollPercent >= milestone && !reachedMilestones.has(milestone)) {
+                reachedMilestones.add(milestone);
+                trackEvent('scroll_depth', {
+                    category: 'Engagement',
+                    percent_scrolled: milestone
+                });
+            }
+        });
+    });
+
+    // D. Time on Page Heartbeat (30s, 60s, 120s, 300s)
+    const timeMilestones = [30, 60, 120, 300];
+    timeMilestones.forEach(seconds => {
+        setTimeout(() => {
+            trackEvent('time_on_page', {
+                category: 'Engagement',
+                seconds_spent: seconds
+            });
+        }, seconds * 1000);
+    });
+}
