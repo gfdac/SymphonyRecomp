@@ -31,7 +31,7 @@ public static class AlucardDash
     public static void Update(CpuContext c, IMemory m)
     {
         if (!Enabled || !Game.Available || !Game.InGame || Game.IsLoading) return;
-        if (!Player.IsAlucard) return;
+        if (!Player.IsAlucard || !Player.HasControl) return;
 
         ushort pressed = Game.Pressed;
         ushort tapped = Game.Tapped;
@@ -69,13 +69,20 @@ public static class AlucardDash
             _isDashing = false;
         }
 
-        // Apply dash velocity boost if moving
-        if (_isDashing && (holdRight || holdLeft))
+        // Only apply the boost while actually Walking. That's the one step confirmed (via
+        // telemetry) to have VelocityX reset from scratch by the engine every frame before
+        // this runs, so re-multiplying the fresh base value each frame is safe and is what
+        // keeps the dash sustained (98304 -> 172032 -> 98304 -> 172032 ... each frame).
+        // Standing does NOT reset it -- VelocityX just carries over frame to frame there
+        // (e.g. residual momentum), same as Aerial -- so multiplying it repeatedly compounds
+        // an already-boosted value instead of boosting it once. Confirmed via telemetry: with
+        // the previous Standing-included gate, VelocityX ran away from 86016 to over 1.7
+        // billion in about 18 frames while the player wasn't even moving.
+        if (Player.Step == PlayerStep.Walking && _isDashing && (holdRight || holdLeft))
         {
             int curVelX = Player.VelocityX;
             if (curVelX != 0)
             {
-                // Multiply velocity
                 int targetVel = (int)(curVelX * DashSpeedMultiplier);
                 Player.VelocityX = targetVel;
             }

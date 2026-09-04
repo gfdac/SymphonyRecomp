@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RecompOne.Runtime.Hle;
+using Sotn;
 
 namespace Recompiled;
 
@@ -89,6 +90,93 @@ public static partial class FunctionFixes
             m.WriteU16(0x800733EE, 0x8100);
             m.WriteU16(0x800733F0, 0);
         }
+    }
+
+    // Alucard Effect-Pool Never-Allocated Crash Fix
+    //
+    // Alucard's per-frame update (EntityAlucard -> func_801093C4) walks a 6-node chain out of the
+    // shared GPU-primitive pool (base 0x80086FEC, stride 0x34) using an index stored at 0x800734F8.
+    // That index is written in exactly one place in the whole game: FUN_80109594, part of Alucard's
+    // full entity init, which itself only runs when EngineStepAddr (0x8003C9A4) is 0 AND the current
+    // stage is neither the Prologue nor Richter mode. Since every normal playthrough starts in the
+    // Prologue, that condition is never true there, and (confirmed via a crash dump with pool-chain
+    // diagnostics) it never becomes true again for the rest of the session either -- so 0x800734F8
+    // stays 0 for the whole game. Index 0 isn't "unallocated", it's the raw base of the pool array,
+    // so func_801093C4 ends up walking whatever happens to be linked there instead of a chain it
+    // actually owns. That's fine as long as those first slots stay coincidentally chained, but once
+    // anything else consumes/frees nodes near the front of the pool, the chain it walks can end
+    // early (confirmed: chain from index 0 terminated after 4 nodes instead of 6) or point at
+    // memory that isn't part of the pool at all, and func_801093C4's loop doesn't check for that --
+    // it just crashes with "unmapped address" a couple reads later.
+    //
+    // Fix: once, the first time we see Alucard in active gameplay with a still-zero index, allocate
+    // a real 8-node chain ourselves via GameApi.AllocPrimitives -- the same allocator FUN_80109594
+    // itself calls (through the same 0x8003C7B8 API slot the widescreen water code uses) -- and mark
+    // the first 6 nodes exactly the way FUN_80109594 does. We deliberately don't call FUN_80109594
+    // itself: it also zeroes Alucard's entire stat block (HP/MP/stats/etc), which would be correct
+    // only at a true fresh entity spawn, not mid-playthrough.
+    const uint AlucardEffectPoolIndexAddr = 0x800734F8;
+    const uint AlucardEffectPoolFlagsAddr = 0x800734C8; // Entity[1].Flags (Entity 0 = Alucard, stride 0xBC)
+    const uint PrimitivePoolBase = 0x80086FEC;
+    const uint PrimitivePoolStride = 0x34;
+    const int PrimitivePoolCount = 0x400; // matches FUN_800edc80's own search bound
+
+    static int _alucardEffectPoolRepairs;
+    const int MaxRepairsPerSession = 20; // give up logging/retrying past this so a persistent conflict doesn't spam-reallocate forever
+
+    // First pass here (see the long comment above) assumed a one-time allocation would be
+    // enough, like FUN_80109594's own single call. It ran, and correctly got index 0 back --
+    // that's a legitimate allocation, not "still unallocated" (0 just happens to double as
+    // both). But the crash still recurred later, and confirmed via xref there is NO other
+    // writer of 0x800734F8 anywhere in the DRA overlay -- so the index itself can't have
+    // reverted. What must be happening instead is the *chain* getting shortened/corrupted by
+    // something else in the shared pool later in the session, while the index we wrote stays
+    // exactly as we left it. A one-shot fix can't defend against that. This now re-verifies the
+    // chain every frame and re-allocates whenever it's broken, instead of trusting it forever
+    // after the first repair.
+    public static void AlucardEffectPoolFix(CpuContext c, IMemory m)
+    {
+        if (QualityOfLife.BugFixes == false) return;
+        if (!Game.Available || !Game.InGame || Game.IsLoading || !Player.IsAlucard) return;
+        if (Game.StageId == Stage.Prologue) return; // mirrors FUN_80109594's own exclusion, entity 1 may serve a different purpose there
+        if (!Player.HasControl) return; // don't call into the engine reentrantly during a cutscene/demo -- suspected of leaving the player stuck with no control right after the Prologue ends
+        if (_alucardEffectPoolRepairs >= MaxRepairsPerSession) return;
+
+        if (ChainLooksValid(m, m.ReadU32(AlucardEffectPoolIndexAddr))) return;
+
+        int index = GameApi.AllocPrimitives(1, 8);
+        _alucardEffectPoolRepairs++;
+        Console.WriteLine($"[AlucardEffectPoolFix] repair #{_alucardEffectPoolRepairs}: stage={Game.StageId} AllocPrimitives(1,8) returned {index}");
+        if (index < 0) return; // pool exhausted; nothing safe to do, try again next frame
+
+        m.WriteU32(AlucardEffectPoolIndexAddr, (uint)index);
+        m.WriteU32(AlucardEffectPoolFlagsAddr, m.ReadU32(AlucardEffectPoolFlagsAddr) | 0x00800000u);
+
+        uint node = PrimitivePoolBase + (uint)index * PrimitivePoolStride;
+        var visited = new List<uint>();
+        for (int i = 0; i < 6 && node != 0; i++)
+        {
+            visited.Add(node);
+            m.WriteU16(node + 0x32, 0x10A);
+            node = m.ReadU32(node);
+        }
+        Console.WriteLine($"[AlucardEffectPoolFix] repair #{_alucardEffectPoolRepairs}: chain = {string.Join(" -> ", visited.ConvertAll(n => $"0x{n:X8}"))} -> 0x{node:X8}");
+    }
+
+    // Walks up to 6 nodes (what func_801093C4 itself walks) and confirms each hop stays inside
+    // the pool's actual address range -- a chain that goes null early, or wanders outside the
+    // pool entirely, is exactly what made func_801093C4 read unmapped memory.
+    static bool ChainLooksValid(IMemory m, uint index)
+    {
+        uint node = PrimitivePoolBase + index * PrimitivePoolStride;
+        uint poolEnd = PrimitivePoolBase + (uint)PrimitivePoolCount * PrimitivePoolStride;
+        for (int i = 0; i < 6; i++)
+        {
+            if (node < PrimitivePoolBase || node >= poolEnd) return false;
+            try { node = m.ReadU32(node); }
+            catch { return false; }
+        }
+        return true;
     }
 }
 

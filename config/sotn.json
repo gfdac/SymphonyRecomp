@@ -2161,6 +2161,18 @@
     },
     {
       "overlay": "dra",
+      "function": "CheckTetraSpiritInput",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasyTetraSpiritInput"
+    },
+    {
+      "overlay": "dra",
+      "function": "CheckHellfireInput",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasyHellfireInput"
+    },
+    {
+      "overlay": "dra",
       "function": "CheckGravityBootsInput",
       "mode": "pre",
       "target": "Recompiled.QualityOfLife.EasyGravInput"

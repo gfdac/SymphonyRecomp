@@ -76,6 +76,8 @@ internal class QualityOfLife
     //note to eldrich from flaffy, later if possible try using the Pallete class, it has some helper functions to easy this out!
     public static void Apply(CpuContext c, IMemory m)
     {
+        TelemetryRecorder.Update(c, m);
+        FunctionFixes.AlucardEffectPoolFix(c, m);
         QuickWeaponSwap.Update(c, m);
         SpellWheel.Update(c, m);
         Achievements.Update(c, m);
@@ -141,8 +143,10 @@ internal class QualityOfLife
 
     public static void EasySpellInput(CpuContext c, IMemory m)
     {
-        // Easy Mode application
-        // Spells
+        // Easy Mode application -- Soul Steal only. Tetra Spirit and Hellfire moved to their own
+        // hooks below -- they have their own separate check functions (CheckTetraSpiritInput,
+        // CheckHellfireInput), not a shared one, so writing their step here was landing on the
+        // wrong function's state entirely.
         if (QualityOfLife.UseEasySpellInput == true)
         {
             // ↑ + L2 makes Soul Steal go
@@ -152,7 +156,13 @@ internal class QualityOfLife
                 m.WriteU16(0x80138fda, 0x10); // Soul Steal Timer = 10 fr
                 m.WriteU16(0x80097494, 0x80); // Button Tapped = Sq
             }
+        }
+    }
 
+    public static void EasyTetraSpiritInput(CpuContext c, IMemory m)
+    {
+        if (QualityOfLife.UseEasySpellInput == true)
+        {
             // ↓↓ + L2 makes Tetra Spirit go
             if (m.ReadU16(0x80097490) == 0x4001)
             {
@@ -160,7 +170,13 @@ internal class QualityOfLife
                 m.WriteU16(0x80138fd2, 0x10); // Tetra Spirit Timer = 10 fr
                 m.WriteU16(0x80097494, 0x80); // Button Tapped = Sq
             }
+        }
+    }
 
+    public static void EasyHellfireInput(CpuContext c, IMemory m)
+    {
+        if (QualityOfLife.UseEasySpellInput == true)
+        {
             // → | ← + L2 makes Hellfire go
             if (m.ReadU16(0x80097490) == 0x2001 || m.ReadU16(0x80097490) == 0x8001)
             {
@@ -170,6 +186,7 @@ internal class QualityOfLife
             }
         }
     }
+
     public static void EasyWingInput(CpuContext c, IMemory m)
     {
         if (QualityOfLife.UseEasySpellInput == true)

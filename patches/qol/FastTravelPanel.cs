@@ -173,14 +173,27 @@ public sealed class FastTravelPanel : IPanel
         int targetX = dest.RoomX;
         int targetY = dest.RoomY;
 
-        // Tentar obter a primeira sala válida do estágio para segurança total de coordenadas
+        // Tentar obter uma sala válida do estágio para segurança total de coordenadas. rooms[0]
+        // (a primeira da tabela do próprio estágio) costuma ser só a primeira em ordem de dados,
+        // não necessariamente uma sala jogável -- vários estágios (Outer Wall, Clock Tower, Warp,
+        // Alchemy Laboratory) têm como primeira entrada uma célula de 1x1 tile (provavelmente um
+        // marcador interno do mapa), e cair bem no centro dela com o offset fixo (128,128) deixa
+        // o jogador preso/afundando no chão, ou caindo pra fora dependendo da colisão daquele
+        // tile específico. Prefere a primeira sala com pelo menos 4 tiles de área (não é uma
+        // "célula de passagem"), caindo pra rooms[0] só se nenhuma sala do estágio for maior que isso.
         try
         {
             var rooms = Stages.Rooms(dest.Stage);
             if (rooms.Count > 0)
             {
-                targetX = rooms[0].Left;
-                targetY = rooms[0].Top;
+                var best = rooms[0];
+                foreach (var r in rooms)
+                {
+                    int area = (r.Right - r.Left + 1) * (r.Bottom - r.Top + 1);
+                    if (area >= 4) { best = r; break; }
+                }
+                targetX = best.Left;
+                targetY = best.Top;
             }
         }
         catch { }

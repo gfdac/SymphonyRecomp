@@ -82,7 +82,6 @@ public static partial class WidescreenPatch
         int posXv = px - vScroll;
 
         bool staleBounds = _roomX != int.MinValue && (tmX != _roomX || tmW != _roomW);
-        int handoffX = S16(m, PlPosXHi);
 
         if (_roomJustLoaded && staleBounds && !OriginalAspect)
         {
@@ -91,11 +90,17 @@ public static partial class WidescreenPatch
             int scrHi = Math.Max(tmX, tmW - 256);
             if (scrNow < tmX || scrNow > scrHi)
             {
+                // Only nudge the scroll register here, to stop it visually snapping for one frame
+                // while it still holds the previous room's value. Do NOT rebuild PlayerXWorld from
+                // (PlPosXHi + rebased-scroll): both of those are still carried over from the room we
+                // just left, so combining them after clamping produces a world X with no relation to
+                // the actual spawn position handed off by the transition (RoomLoadDef) -- confirmed
+                // against the original func_800F0CD8 in Ghidra, which never touches PlayerXWorld here.
+                // That bogus write is what was teleporting Alucard into the water pit right after
+                // entering the wolf room (no4): its widened widescreen bounds trip staleBounds, and
+                // the clamped scroll + stale offset landed him over the water instead of at the door.
                 int rebased = Math.Clamp(scrNow, tmX, scrHi);
-                int keptPlX = S16(m, PlPosXHi);
                 W16(m, TilemapScrollXHi, rebased);
-                px = keptPlX + rebased;
-                m.WriteU32(PlayerXWorld, (uint)px);
             }
         }
 

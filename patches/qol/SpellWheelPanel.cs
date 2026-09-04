@@ -46,6 +46,10 @@ public sealed class SpellWheelPanel : IPanel
         if (ImGui.IsItemHovered())
             ImGui.SetTooltip(Localization.T("spell.quick_cast_keys_hint"));
 
+        dirty |= ImGui.Checkbox("Infinite Mana", ref SpellWheel.InfiniteMana);
+        if (ImGui.IsItemHovered())
+            ImGui.SetTooltip("Casting never costs MP");
+
         if (dirty) SpellWheel.Save();
 
         ImGui.SeparatorText(Localization.T("spell.spell_list"));
@@ -56,14 +60,15 @@ public sealed class SpellWheelPanel : IPanel
         {
             var info = SpellWheel.Spells[i];
             bool hasSpell = Inventory.HasSpell(info.Spell);
-            bool hasMp = curMp >= info.MpCost;
+            int mpCost = SpellWheel.GetMpCost(m, info);
+            bool hasMp = SpellWheel.InfiniteMana || curMp >= mpCost;
 
             string name = Localization.T(info.NameKey);
             if (string.IsNullOrEmpty(name) || name.StartsWith("spell."))
                 name = info.DefaultName;
 
             string hotkeyLabel = i < 6 ? $" [{i + 1}]" : "";
-            string buttonLabel = $"{name}{hotkeyLabel} ({info.MpCost} MP)##spell_{i}";
+            string buttonLabel = $"{name}{hotkeyLabel} ({mpCost} MP)##spell_{i}";
 
             if (!hasMp)
             {

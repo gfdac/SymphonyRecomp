@@ -1,6 +1,9 @@
 using RecompOne.Runtime.Memory;
 using Recompiled;
 
+AppDomain.CurrentDomain.UnhandledException += (_, e) =>
+    Recompiled.CrashLogger.Write(e.ExceptionObject as Exception, "AppDomain.UnhandledException");
+
 if (AutoUpdater.HandleRelaunch(args)) return 0;
 
 var asm = System.Reflection.Assembly.GetExecutingAssembly();
@@ -34,5 +37,13 @@ if (Array.Find(asm.GetManifestResourceNames(), n => n.EndsWith(".SymphonyRecomp.
 
 const uint RamSize = 0x00800000; //8
 
-RecompOne.Runtime.Runtime.Run(() => Entry.Run(new PSMemory(RamSize), args.Length > 0 ? args[0] : null, title));
+try
+{
+    RecompOne.Runtime.Runtime.Run(() => Entry.Run(new PSMemory(RamSize), args.Length > 0 ? args[0] : null, title));
+}
+catch (Exception ex)
+{
+    Recompiled.CrashLogger.Write(ex, "Program.Main");
+    throw;
+}
 return 0;
