@@ -141,21 +141,25 @@ internal class QualityOfLife
         }
     }
 
+    // These three used to force the spell's own step/timer + a fake "Square tapped" bit
+    // (0x80097494) to skip the directional input. Same root problem SpellWheel's Quick Cast had:
+    // the check functions that would react to that step actually confirm on 0x80072eec, which
+    // EntityAlucard recomputes fresh every frame from the real pad state, not from anything
+    // writable ahead of time -- so the fake tap never reliably completed the cast. Now they just
+    // call SpellWheel.CastSpell directly (same MP-check/execute path Quick Cast uses) on the
+    // rising edge of the combo, so holding it doesn't recast every frame.
+    private static bool _soulStealComboHeld;
+    private static bool _tetraSpiritComboHeld;
+    private static bool _hellfireComboHeld;
+
     public static void EasySpellInput(CpuContext c, IMemory m)
     {
-        // Easy Mode application -- Soul Steal only. Tetra Spirit and Hellfire moved to their own
-        // hooks below -- they have their own separate check functions (CheckTetraSpiritInput,
-        // CheckHellfireInput), not a shared one, so writing their step here was landing on the
-        // wrong function's state entirely.
         if (QualityOfLife.UseEasySpellInput == true)
         {
             // ↑ + L2 makes Soul Steal go
-            if (m.ReadU16(0x80097490) == 0x1001)
-            {
-                m.WriteU16(0x80138fd8, 0x07); // Soul Steal step 7
-                m.WriteU16(0x80138fda, 0x10); // Soul Steal Timer = 10 fr
-                m.WriteU16(0x80097494, 0x80); // Button Tapped = Sq
-            }
+            bool combo = m.ReadU16(0x80097490) == 0x1001;
+            if (combo && !_soulStealComboHeld) SpellWheel.CastSpell(SpellWheel.Spells[4], m);
+            _soulStealComboHeld = combo;
         }
     }
 
@@ -164,12 +168,9 @@ internal class QualityOfLife
         if (QualityOfLife.UseEasySpellInput == true)
         {
             // ↓↓ + L2 makes Tetra Spirit go
-            if (m.ReadU16(0x80097490) == 0x4001)
-            {
-                m.WriteU16(0x80138fd0, 0x07); // Tetra Spirit step 7
-                m.WriteU16(0x80138fd2, 0x10); // Tetra Spirit Timer = 10 fr
-                m.WriteU16(0x80097494, 0x80); // Button Tapped = Sq
-            }
+            bool combo = m.ReadU16(0x80097490) == 0x4001;
+            if (combo && !_tetraSpiritComboHeld) SpellWheel.CastSpell(SpellWheel.Spells[1], m);
+            _tetraSpiritComboHeld = combo;
         }
     }
 
@@ -178,12 +179,9 @@ internal class QualityOfLife
         if (QualityOfLife.UseEasySpellInput == true)
         {
             // → | ← + L2 makes Hellfire go
-            if (m.ReadU16(0x80097490) == 0x2001 || m.ReadU16(0x80097490) == 0x8001)
-            {
-                m.WriteU16(0x80138fcc, 0x04); // Hellfire step 4
-                m.WriteU16(0x80138fce, 0x10); // Hellfire Timer = 10 fr
-                m.WriteU16(0x80097494, 0x80); // Button Tapped = Sq
-            }
+            bool combo = m.ReadU16(0x80097490) == 0x2001 || m.ReadU16(0x80097490) == 0x8001;
+            if (combo && !_hellfireComboHeld) SpellWheel.CastSpell(SpellWheel.Spells[3], m);
+            _hellfireComboHeld = combo;
         }
     }
 
